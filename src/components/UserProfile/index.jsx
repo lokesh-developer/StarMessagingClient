@@ -6,7 +6,6 @@ import {
   Text,
   Heading,
   Button,
-  Divider,
 } from "@chakra-ui/react";
 import axios from "axios";
 import { useEffect, useState } from "react";
