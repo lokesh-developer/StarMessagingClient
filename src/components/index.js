@@ -1,4 +1,3 @@
-export * from "./FriendsList";
 export * from "./ChatList";
 export * from "./Chat";
 export * from "./Welcome";

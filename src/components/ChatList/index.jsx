@@ -9,10 +9,10 @@ import {
 } from "@chakra-ui/react";
 import { Search } from "../Search";
 import { Sidebar } from "../Sidebar";
-import { FriendsList } from "../FriendsList";
+import { FriendsList } from "./FriendsList";
 import { MdMenu } from "react-icons/md";
 
-export const ChatList = () => {
+export const ChatList = ({ onlineUsers }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const bg = useColorModeValue("gray.100", "gray.700");
 
@@ -37,7 +37,7 @@ export const ChatList = () => {
           <Search />
         </Flex>
         {/* <SavedMessages /> */}
-        <FriendsList />
+        <FriendsList onlineUsers={onlineUsers} />
       </Box>
       <Sidebar Close={onClose} Open={isOpen} />
     </Slide>

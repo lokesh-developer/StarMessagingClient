@@ -1,5 +1,5 @@
 import Lottie from "react-lottie";
-import { logo } from "../../lottie";
+import { logo } from "../../lib/lottie";
 
 export const Logo = ({ width, height }) => {
   const logoAni = {

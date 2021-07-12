@@ -14,6 +14,7 @@ function Auth() {
       url: "http://localhost:4000/users/googlelogin",
       data: { tokenId: res.tokenId, profile: res.profileObj },
     }).then((response) => {
+      console.log(response);
       localStorage.setItem("profile", JSON.stringify(response.data.user));
       history.push("/chats");
     });
@@ -34,7 +35,7 @@ function Auth() {
           isSignedIn={true}
           theme={value}
           buttonText="Login"
-          clientId={process.env.REACT_GOOGLE_CLIENT_ID}
+          clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
           onSuccess={signinSuccess}
           onFailure={signinFailure}
           cookiePolicy={"single_host_origin"}

@@ -1,6 +1,6 @@
 import { SlideFade, Heading, Flex } from "@chakra-ui/react";
 import Lottie from "react-lottie";
-import { logo } from "../../lottie";
+import { logo } from "../../lib/lottie";
 
 export const Welcome = () => {
   const logoAni = {

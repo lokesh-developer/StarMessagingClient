@@ -51,10 +51,9 @@ export const ChatBox = () => {
     scrollRef.current?.scrollTo(0, scrollRef.current?.scrollHeight);
   }, [messages]);
 
-  useEffect(() => {
-    socket.current.emit("addUsers", user._id);
-    socket.current.on("getUsers", (users) => {});
-  }, [user]);
+  // useEffect(() => {
+  //   socket.current.emit("addOnlineUsers", user._id);
+  // }, [user]);
 
   useEffect(() => {
     arrivalMessage &&

@@ -12,39 +12,37 @@ import {
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-export const Friend = ({ conversation, currentUser }) => {
+export const Friend = ({ conversation, onlineFriend }) => {
   const lastseen = useColorModeValue("gray.600", "gray.500");
   const bg = useColorModeValue("gray.50", "whiteAlpha.50");
-  const [user, setUser] = useState(null);
-  useEffect(() => {
-    const friendId = conversation.members.find((m) => m !== currentUser._id);
+  const [friendUser, setFriendUser] = useState(null);
+  const user = JSON.parse(localStorage.getItem("profile"));
 
+  useEffect(() => {
     const getUser = async () => {
+      const friendId = conversation?.members.find((m) => m !== user._id);
       try {
         const res = await axios("/users?userId=" + friendId);
-        localStorage.setItem(
-          `conversation/friend/${friendId}`,
-          JSON.stringify(res.data)
-        );
-        setUser(res.data);
+        setFriendUser(res.data);
       } catch (error) {
-        const offlineConversationFriend = JSON.parse(
-          localStorage.getItem(`conversation/friend/${friendId}`)
-        );
-        setUser(offlineConversationFriend);
+        console.log(error);
       }
     };
     getUser();
-  }, [currentUser, conversation]);
-
+  }, [user._id, conversation?.members]);
+  // console.log(onlineFriend);
   return (
     <LinkBox _hover={{ bg }}>
       <LinkOverlay as={Link} to={"/chats/" + conversation._id} />
       <Flex alignItems="center" p="10px">
-        <Avatar src={user?.profileUrl} />
+        <Avatar src={friendUser?.profileUrl} />
         <Box p={3}>
-          <Heading size="md">{user?.name}</Heading>
-          <Text color={lastseen}>last seen recently</Text>
+          <Heading size="md">{friendUser?.name}</Heading>
+          {/* { ? (
+            <Text color="teal">Online</Text>
+          ) : ( */}
+          <Text color={lastseen}> last seen recently</Text>
+          {/* )} */}
         </Box>
       </Flex>
     </LinkBox>
