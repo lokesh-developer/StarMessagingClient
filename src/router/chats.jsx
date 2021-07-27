@@ -3,6 +3,9 @@ import { Route, Switch } from "react-router";
 
 export const Chats = () => {
   const Chat = loadable(() => import("../components").then((mod) => mod.Chat));
+  const ChatRequests = loadable(() =>
+    import("../components").then((mod) => mod.ChatRequests)
+  );
   const UserProfile = loadable(() =>
     import("../components").then((mod) => mod.UserProfile)
   );
@@ -12,11 +15,11 @@ export const Chats = () => {
       <Route exact path="/chats/users/:userId">
         <UserProfile />
       </Route>
-      <Route exact path="/chats/:conversationId">
+      <Route exact path="/chats/conversations/:conversationId">
         <Chat />
       </Route>
-      <Route exact path="/chats/saved-messages/:userId">
-        <Chat />
+      <Route exact path="/chats/chats-requests">
+        <ChatRequests />
       </Route>
     </Switch>
   );

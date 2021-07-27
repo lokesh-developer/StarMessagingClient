@@ -35,7 +35,7 @@ export const Friend = ({ conversation }) => {
 
   return (
     <LinkBox _hover={{ bg }}>
-      <LinkOverlay as={Link} to={"/chats/" + conversation._id} />
+      <LinkOverlay as={Link} to={"/chats/conversations/" + conversation._id} />
       <Flex alignItems="center" p="10px">
         <Avatar src={friendUser?.profileUrl} />
         <Box p={3}>

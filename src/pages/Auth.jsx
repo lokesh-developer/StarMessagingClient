@@ -1,13 +1,11 @@
 import { Flex, useColorModeValue } from "@chakra-ui/react";
 import { Welcome } from "../components";
 import GoogleLogin from "react-google-login";
-import { useHistory } from "react-router-dom";
 import axios from "axios";
 
 function Auth() {
   // Here's the signature
   const value = useColorModeValue("dark", "light");
-  const history = useHistory();
   const signinSuccess = async (res) => {
     axios({
       method: "POST",
@@ -16,7 +14,7 @@ function Auth() {
     }).then((response) => {
       console.log(response);
       localStorage.setItem("profile", JSON.stringify(response.data.user));
-      history.push("/chats");
+      window.location.href = "/chats";
     });
   };
   const signinFailure = (res) => {

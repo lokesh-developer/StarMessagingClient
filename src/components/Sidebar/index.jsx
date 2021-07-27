@@ -48,6 +48,7 @@ export const Sidebar = ({ Open, Close }) => {
             <SideBarButton
               label="Chat requests"
               icon={<MdPersonAdd fontSize="26px" />}
+              onClick={() => history.push("/chats/chats-requests")}
             />
             <SideBarButton
               label="Settings"

@@ -40,6 +40,7 @@ this.addEventListener("activate", (event) => {
 
   event.waitUntil(
     caches.keys().then((cacheNames) => {
+      // eslint-disable-next-line array-callback-return
       cacheNames.map((cacheName) => {
         if (!cacheWhiteList.includes(cacheName)) {
           return caches.delete(cacheName);

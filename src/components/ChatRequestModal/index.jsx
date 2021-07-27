@@ -1,31 +1,68 @@
 import {
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-  ModalCloseButton,
+  Box,
+  IconButton,
+  Flex,
+  Heading,
+  useColorModeValue,
+  Divider,
+  Text,
 } from "@chakra-ui/react";
+import { useHistory } from "react-router-dom";
+import { MdKeyboardArrowLeft } from "react-icons/md";
+import { RequestersProfile } from "./RequestersProfile";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
-export const ChatRequestModal = () => {
+export const ChatRequests = () => {
+  const bg = useColorModeValue("gray.100", "gray.800");
+  const history = useHistory();
+  const user = JSON.parse(localStorage.getItem("profile"));
+  const [allRequests, setAllRequests] = useState([]);
+
+  useEffect(() => {
+    const getAllRequests = async () => {
+      try {
+        const requests = await axios.get("/requests?userId=" + user._id);
+        setAllRequests(requests.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getAllRequests();
+  }, [user._id]);
+
   return (
-    <Modal
-      scrollBehavior="inside"
-      size="xl"
-      motionPreset="slideInBottom"
-      isOpen={Open}
-      onClose={Close}
+    <Box
+      pos="fixed"
+      top="0"
+      d="flex"
+      ml={["0%", "0%", "35%"]}
+      w={["100%", "100%", "65%"]}
+      h="full"
+      flexDir="column"
+      bg={bg}
     >
-      <ModalOverlay />
-      <ModalContent
-        mt={["0", "5%"]}
-        rounded="none"
-        minH={{ base: "100vh", sm: "96" }}
-      >
-        <ModalHeader bg={bg}>Settings</ModalHeader>
-        <ModalCloseButton />
-        <ModalBody p={0}></ModalBody>
-      </ModalContent>
-    </Modal>
+      <Flex p={4} alignItems="center">
+        <IconButton
+          icon={<MdKeyboardArrowLeft fontSize="27px" />}
+          variant="ghost"
+          outline="none"
+          mr={4}
+          alignItems="center"
+          justifyContent="center"
+          onClick={() => history.goBack()}
+          d={["block", "block", "none"]}
+        />
+        <Heading size="md">Chat Requests</Heading>
+      </Flex>
+      <Divider orientation="horizontal" />
+      {allRequests.length > 0 ? (
+        allRequests.map((request, index) => (
+          <RequestersProfile key={index} request={request} />
+        ))
+      ) : (
+        <Text>No requests</Text>
+      )}
+    </Box>
   );
 };
