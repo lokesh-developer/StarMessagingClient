@@ -28,6 +28,7 @@ registerRoute(
   // Return false to exempt requests from being fulfilled by index.html.
   ({ request, url }) => {
     // If this isn't a navigation, skip.
+
     if (request.mode !== "navigate") {
       return false;
     } // If this is a URL that starts with /_, skip.

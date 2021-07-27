@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState, useContext } from "react";
 import {
   Box,
   Input,
@@ -10,12 +10,13 @@ import { Message } from "./Message";
 import { MdSend } from "react-icons/md";
 import { useParams } from "react-router";
 import axios from "axios";
-import { io } from "socket.io-client";
+import { SocketContext } from "../../../context/SocketContextProvider";
 import { Loader } from "../../Loader";
 import { toDate } from "date-fns-tz";
 import { format } from "date-fns";
 
 export const ChatBox = () => {
+  const socket = useContext(SocketContext);
   const getConversation = useParams();
   const [messages, setMessages] = useState([]);
   const bg = useColorModeValue("gray.100", "gray.700");
@@ -23,7 +24,6 @@ export const ChatBox = () => {
   const user = JSON.parse(localStorage.getItem("profile"));
   const [chat, currentChat] = useState([]);
   const [arrivalMessage, setArrivalMessage] = useState({});
-  const socket = useRef();
   const [loading, setLoading] = useState(false);
   const scrollRef = useRef();
   const send = useRef();
@@ -34,26 +34,21 @@ export const ChatBox = () => {
   const date = toDate(currentDate, { timeZone: "UTC" });
 
   useEffect(() => {
-    socket.current = io("ws://localhost:5000");
-    socket.current.on("recieveMessage", (data) => {
+    socket?.on("recieveMessage", (data) => {
       setArrivalMessage({
         sender: data.senderId,
         text: data.text,
         sentAt: data.sentAt,
       });
     });
-    socket.current.on("messageDeleted", (data) => {
+    socket?.on("messageDeleted", (data) => {
       setMessages(data.previosMessages);
     });
-  }, []);
+  }, [socket]);
 
   useEffect(() => {
     scrollRef.current?.scrollTo(0, scrollRef.current?.scrollHeight);
   }, [messages]);
-
-  // useEffect(() => {
-  //   socket.current.emit("addOnlineUsers", user._id);
-  // }, [user]);
 
   useEffect(() => {
     arrivalMessage &&
@@ -106,12 +101,14 @@ export const ChatBox = () => {
     };
     const recieverId = chat[0]?.members.find((member) => member !== user._id);
 
-    socket.current.emit("sendMessage", {
+    socket?.emit("sendMessage", {
       senderId: user._id,
       recieverId: recieverId,
       text: newMessage,
       sentAt: date,
     });
+
+    console.log(socket);
 
     try {
       const res = await axios.post("/messages", message);
@@ -129,7 +126,7 @@ export const ChatBox = () => {
     try {
       const res = await axios.post("/messages/delete/" + messageDeleting);
       setMessages(messages.filter((m) => m._id !== res.data._id));
-      socket.current.emit("deleteMessage", {
+      socket?.emit("deleteMessage", {
         previosMessages: [...messages.filter((m) => m._id !== res.data._id)],
         recieverId: recieverId,
         messageId: messageDeleting,

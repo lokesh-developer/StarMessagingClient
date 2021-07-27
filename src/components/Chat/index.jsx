@@ -6,7 +6,6 @@ import { ChatBox } from "./ChatBox";
 
 export const Chat = () => {
   const [currentChat, setCurrenChat] = useState(null);
-
   const getConversation = useParams();
 
   useEffect(() => {

@@ -12,7 +12,7 @@ import { Sidebar } from "../Sidebar";
 import { FriendsList } from "./FriendsList";
 import { MdMenu } from "react-icons/md";
 
-export const ChatList = ({ onlineUsers }) => {
+export const ChatList = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const bg = useColorModeValue("gray.100", "gray.700");
 
@@ -37,7 +37,7 @@ export const ChatList = ({ onlineUsers }) => {
           <Search />
         </Flex>
         {/* <SavedMessages /> */}
-        <FriendsList onlineUsers={onlineUsers} />
+        <FriendsList />
       </Box>
       <Sidebar Close={onClose} Open={isOpen} />
     </Slide>

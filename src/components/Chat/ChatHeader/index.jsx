@@ -4,20 +4,26 @@ import {
   useColorModeValue,
   Text,
   Button,
+  Menu,
+  MenuButton,
+  IconButton,
+  MenuItem,
+  MenuList,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { useHistory } from "react-router-dom";
-// import { MdMoreVert } from "react-icons/md";
-// import { ProfileModal } from "../../ProfileModal";
+import { MdMoreVert } from "react-icons/md";
+import { ProfileModal } from "../../ProfileModal";
 import { MdKeyboardArrowLeft } from "react-icons/md";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import axios from "axios";
 import { Loader } from "../../Loader";
+import { OnlineUser } from "../../OnlineUser";
 
 export const ChatHeader = () => {
   const bg = useColorModeValue("gray.100", "gray.700");
-  const lastseen = useColorModeValue("gray.600", "gray.500");
-  // const { isOpen, onOpen, onClose } = useDisclosure();
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const history = useHistory();
   const [myFriend, setMyFriend] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -46,7 +52,7 @@ export const ChatHeader = () => {
     };
     getFriends();
   }, [getConversation.conversationId]);
-  // console.log(friend[0]);
+
   useEffect(() => {
     const findFriend = async () => {
       const friendId = friend[0]?.members.find((member) => member !== user._id);
@@ -93,24 +99,24 @@ export const ChatHeader = () => {
           <Avatar src={myFriend.profileUrl} />
           <Flex w="full" flexDir="column" mx={4}>
             <Text as="b">{myFriend.name}</Text>
-            <Text color={lastseen}>last seen recently</Text>
+            <OnlineUser friendId={myFriend._id} />
           </Flex>
         </Flex>
-        {/* <Flex>
-            <Menu>
-              <MenuButton
-                as={IconButton}
-                variant="ghost"
-                icon={<MdMoreVert fontSize="27px" />}
-                borderRadius="full"
-              ></MenuButton>
-              <MenuList>
-                <MenuItem>View Profile</MenuItem>
-                <MenuItem>Delete Chat</MenuItem>
-              </MenuList>
-            </Menu>
-          </Flex> */}
-        {/* <ProfileModal isOpen={isOpen} onClose={onClose} /> */}
+        <Flex>
+          <Menu>
+            <MenuButton
+              as={IconButton}
+              variant="ghost"
+              icon={<MdMoreVert fontSize="27px" />}
+              borderRadius="full"
+            ></MenuButton>
+            <MenuList>
+              <MenuItem onClick={onOpen}>View Profile</MenuItem>
+              <MenuItem>Delete Chat</MenuItem>
+            </MenuList>
+          </Menu>
+        </Flex>
+        <ProfileModal isOpen={isOpen} onClose={onClose} />
       </Flex>
       {loading !== true ? <Loader /> : null}
     </>
