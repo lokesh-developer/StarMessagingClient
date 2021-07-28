@@ -15,7 +15,7 @@ import {
 } from "@chakra-ui/react";
 import { SideBarProfile } from "./SideBarProfile";
 import { SideBarButton } from "./SideBarButton";
-import { MdSettings, MdNotifications, MdPersonAdd } from "react-icons/md";
+import { MdSettings, MdPersonAdd } from "react-icons/md";
 import { GoogleLogout } from "react-google-login";
 import { useHistory } from "react-router-dom";
 import { Logo } from "../Logo";
@@ -41,10 +41,6 @@ export const Sidebar = ({ Open, Close }) => {
           </DrawerHeader>
           <Divider orientation="horizontal" />
           <DrawerBody p={0}>
-            <SideBarButton
-              label="Notifications"
-              icon={<MdNotifications fontSize="26px" />}
-            />
             <SideBarButton
               label="Chat requests"
               icon={<MdPersonAdd fontSize="26px" />}

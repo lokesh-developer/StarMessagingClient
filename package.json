@@ -2,7 +2,7 @@
   "name": "chatapp",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:4000/",
+  "proxy": "http://localhost:4000",
   "dependencies": {
     "@chakra-ui/react": "^1.6.4",
     "@emotion/react": "11",

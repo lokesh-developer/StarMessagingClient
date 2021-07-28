@@ -16,11 +16,30 @@ export const RequestersProfile = ({ request }) => {
   const user = JSON.parse(localStorage.getItem("profile"));
   const [receiverProfile, setReceiverProfile] = useState([]);
   const [senderProfile, setSenderProfile] = useState([]);
+  const [requesting, setRequesting] = useState([]);
 
-  const acceptRequest = () => {};
+  const acceptRequest = async () => {
+    const data = {
+      requestId: request._id,
+    };
+    const conversationData = {
+      sendersId: request.sendersId,
+      recieversId: request.receiversId,
+    };
+    try {
+      const req = await axios.all([
+        axios.post("/requests/accept", data),
+        axios.post("/conversations", conversationData),
+      ]);
+      setRequesting(req[0].data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const rejectRequest = () => {};
 
   useEffect(() => {
+    setRequesting(request);
     const getReciever = async () => {
       try {
         const res = await axios.get("/users?userId=" + request.receiversId);
@@ -44,7 +63,7 @@ export const RequestersProfile = ({ request }) => {
 
   return (
     <>
-      {request.receiversId === user._id ? (
+      {requesting.receiversId === user._id ? (
         <Flex p={4} justifyContent="space-between" w="full">
           <Flex>
             <Avatar src={senderProfile.profileUrl} />
@@ -54,7 +73,7 @@ export const RequestersProfile = ({ request }) => {
             </Flex>
           </Flex>
           <Flex>
-            {request.status === "PENDING" ? (
+            {requesting.status === "PENDING" ? (
               <>
                 <IconButton
                   variant="ghost"
@@ -67,13 +86,23 @@ export const RequestersProfile = ({ request }) => {
                   onClick={rejectRequest}
                   ml={4}
                 />
+                <Text color={sentColor} ml={4} fontSize="x-small">
+                  {format(request.createdAt, "UTC:mmmm dS, h:MM TT")}
+                </Text>
+              </>
+            ) : requesting.status === "ACCEPTED" ? (
+              <>
+                <Text color={sentColor} ml={4} fontSize="small">
+                  You accepted this request.
+                </Text>
               </>
             ) : (
-              <></>
+              <>
+                <Text color={sentColor} ml={4} fontSize="small">
+                  You rejected this request.
+                </Text>
+              </>
             )}
-            <Text color={sentColor} ml={4} fontSize="x-small">
-              {format(request.createdAt, "UTC:mmmm dS, h:MM TT")}
-            </Text>
           </Flex>
         </Flex>
       ) : (
@@ -87,10 +116,20 @@ export const RequestersProfile = ({ request }) => {
               </Flex>
             </Flex>
             <Flex>
-              <Text color={sentColor} ml={4} fontSize="small">
-                You sent request on{" "}
-                {format(request.createdAt, "UTC:mmmm dS, h:MM TT")}
-              </Text>
+              {requesting.status === "PENDING" ? (
+                <Text color={sentColor} ml={4} fontSize="small">
+                  You sent request on{" "}
+                  {format(request.createdAt, "UTC:mmmm dS, h:MM TT")}
+                </Text>
+              ) : requesting.status === "ACCEPTED" ? (
+                <Text color={sentColor} ml={4} fontSize="small">
+                  This request has been accepted.
+                </Text>
+              ) : (
+                <Text color={sentColor} ml={4} fontSize="small">
+                  This request has been rejected.
+                </Text>
+              )}
             </Flex>
           </Flex>
         </>

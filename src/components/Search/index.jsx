@@ -20,7 +20,7 @@ export const Search = () => {
       const res =
         searchQuery.length > 23
           ? await axios.get("/users?userId=" + searchQuery)
-          : await axios.get("/users?email=" + searchQuery);
+          : await axios.get("/users?name=" + searchQuery);
       setResult(res.data);
       setLoading(true);
     } catch (error) {

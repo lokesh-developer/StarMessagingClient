@@ -56,7 +56,6 @@ export const ChatHeader = () => {
   useEffect(() => {
     const findFriend = async () => {
       const friendId = friend[0]?.members.find((member) => member !== user._id);
-
       if (friendId !== undefined) {
         try {
           const res = await axios.get("/users?userId=" + friendId);
@@ -96,10 +95,10 @@ export const ChatHeader = () => {
           d={["block", "block", "none"]}
         ></Button>
         <Flex w="full">
-          <Avatar src={myFriend.profileUrl} />
+          <Avatar src={myFriend?.profileUrl} />
           <Flex w="full" flexDir="column" mx={4}>
-            <Text as="b">{myFriend.name}</Text>
-            <OnlineUser friendId={myFriend._id} />
+            <Text as="b">{myFriend?.name}</Text>
+            <OnlineUser friendId={myFriend?._id} />
           </Flex>
         </Flex>
         <Flex>

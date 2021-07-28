@@ -14,9 +14,10 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 export const ChatRequests = () => {
-  const bg = useColorModeValue("gray.100", "gray.800");
+  const bg = useColorModeValue("gray.100", "gray.700");
   const history = useHistory();
   const user = JSON.parse(localStorage.getItem("profile"));
+  const text = useColorModeValue("gray.600", "gray.300");
   const [allRequests, setAllRequests] = useState([]);
 
   useEffect(() => {
@@ -61,7 +62,11 @@ export const ChatRequests = () => {
           <RequestersProfile key={index} request={request} />
         ))
       ) : (
-        <Text>No requests</Text>
+        <Flex p={4} alignItems="center" justifyContent="center">
+          <Text color={text} as="b">
+            No Requests found...
+          </Text>
+        </Flex>
       )}
     </Box>
   );

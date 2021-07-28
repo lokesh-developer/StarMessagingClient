@@ -6,6 +6,7 @@ export const Chats = () => {
   const ChatRequests = loadable(() =>
     import("../components").then((mod) => mod.ChatRequests)
   );
+
   const UserProfile = loadable(() =>
     import("../components").then((mod) => mod.UserProfile)
   );
