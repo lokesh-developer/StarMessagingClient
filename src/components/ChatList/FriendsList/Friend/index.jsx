@@ -22,12 +22,13 @@ export const Friend = ({ conversation }) => {
     const getUser = async () => {
       const friendId = conversation?.members.find((m) => m !== user._id);
       setFriendId(friendId);
-
-      try {
-        const res = await axios("/users?userId=" + friendId);
-        setFriendUser(res.data);
-      } catch (error) {
-        console.log(error);
+      if (friendId !== undefined) {
+        try {
+          const res = await axios("/users?userId=" + friendId);
+          setFriendUser(res.data);
+        } catch (error) {
+          console.log(error);
+        }
       }
     };
     getUser();

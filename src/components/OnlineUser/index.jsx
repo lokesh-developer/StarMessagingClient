@@ -28,7 +28,7 @@ export const OnlineUser = ({ friendId }) => {
   return (
     <>
       {friendOnline ? (
-        <Text color="teal">Online</Text>
+        <Text color="telegram.600">Online</Text>
       ) : (
         <Text color={lastseen}>last seen recently</Text>
       )}

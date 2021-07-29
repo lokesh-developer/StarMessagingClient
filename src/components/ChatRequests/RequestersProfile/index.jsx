@@ -9,6 +9,7 @@ import {
 import { MdDone, MdClear } from "react-icons/md";
 import format from "dateformat";
 import { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import axios from "axios";
 
 export const RequestersProfile = ({ request }) => {
@@ -17,6 +18,7 @@ export const RequestersProfile = ({ request }) => {
   const [receiverProfile, setReceiverProfile] = useState([]);
   const [senderProfile, setSenderProfile] = useState([]);
   const [requesting, setRequesting] = useState([]);
+  const history = useHistory();
 
   const acceptRequest = async () => {
     const data = {
@@ -28,10 +30,11 @@ export const RequestersProfile = ({ request }) => {
     };
     try {
       const req = await axios.all([
-        axios.post("/requests/accept", data),
         axios.post("/conversations", conversationData),
+        axios.post("/requests/accept", data),
       ]);
-      setRequesting(req[0].data);
+      setRequesting(req[1].data);
+      history.push(`/chats/conversations/${req[0].data._id}`);
     } catch (error) {
       console.log(error);
     }
@@ -64,7 +67,12 @@ export const RequestersProfile = ({ request }) => {
   return (
     <>
       {requesting.receiversId === user._id ? (
-        <Flex p={4} justifyContent="space-between" w="full">
+        <Flex
+          p={4}
+          justifyContent="space-between"
+          flexDir={["column", "row"]}
+          w="full"
+        >
           <Flex>
             <Avatar src={senderProfile.profileUrl} />
             <Flex flexDir="column" ml={4}>
@@ -86,19 +94,24 @@ export const RequestersProfile = ({ request }) => {
                   onClick={rejectRequest}
                   ml={4}
                 />
-                <Text color={sentColor} ml={4} fontSize="x-small">
+                <Text
+                  color={sentColor}
+                  ml={4}
+                  mt={["2", "0"]}
+                  fontSize="x-small"
+                >
                   {format(request.createdAt, "UTC:mmmm dS, h:MM TT")}
                 </Text>
               </>
             ) : requesting.status === "ACCEPTED" ? (
               <>
-                <Text color={sentColor} ml={4} fontSize="small">
+                <Text color={sentColor} ml={4} mt={["2", "0"]} fontSize="small">
                   You accepted this request.
                 </Text>
               </>
             ) : (
               <>
-                <Text color={sentColor} ml={4} fontSize="small">
+                <Text color={sentColor} ml={4} mt={["2", "0"]} fontSize="small">
                   You rejected this request.
                 </Text>
               </>
@@ -107,7 +120,12 @@ export const RequestersProfile = ({ request }) => {
         </Flex>
       ) : (
         <>
-          <Flex p={4} justifyContent="space-between" w="full">
+          <Flex
+            p={4}
+            justifyContent="space-between"
+            flexDir={["column", "row"]}
+            w="full"
+          >
             <Flex>
               <Avatar src={receiverProfile.profileUrl} />
               <Flex flexDir="column" ml={4}>
@@ -117,16 +135,16 @@ export const RequestersProfile = ({ request }) => {
             </Flex>
             <Flex>
               {requesting.status === "PENDING" ? (
-                <Text color={sentColor} ml={4} fontSize="small">
+                <Text color={sentColor} ml={4} mt={["2", "0"]} fontSize="small">
                   You sent request on{" "}
                   {format(request.createdAt, "UTC:mmmm dS, h:MM TT")}
                 </Text>
               ) : requesting.status === "ACCEPTED" ? (
-                <Text color={sentColor} ml={4} fontSize="small">
+                <Text color={sentColor} ml={4} mt={["2", "0"]} fontSize="small">
                   This request has been accepted.
                 </Text>
               ) : (
-                <Text color={sentColor} ml={4} fontSize="small">
+                <Text color={sentColor} ml={4} mt={["2", "0"]} fontSize="small">
                   This request has been rejected.
                 </Text>
               )}

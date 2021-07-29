@@ -7,15 +7,20 @@ import {
   PopoverTrigger,
   PopoverContent,
   Button,
-  PopoverHeader,
   PopoverBody,
+  Icon,
 } from "@chakra-ui/react";
 import format from "dateformat";
 // import axios from "axios";
 // import { useEffect, useState } from "react";
+import { MdDone, MdDoneAll } from "react-icons/md";
 
 export const Message = ({ message, own, onDeleteClick, id }) => {
   const sentColor = useColorModeValue("gray.400", "gray.400");
+
+  // useEffect(() => {
+  //   console.log(message);
+  // }, [message]);
 
   return (
     <>
@@ -38,13 +43,29 @@ export const Message = ({ message, own, onDeleteClick, id }) => {
               <Text style={{ wordBreak: "break-all" }} color="white">
                 {message.text}
               </Text>
-              <Text color={sentColor} fontSize="x-small">
-                {format(message.sentAt, "UTC:h:MM TT")}
-              </Text>
+              <Flex mt={2}>
+                <Text color={sentColor} fontSize="x-small">
+                  {format(message.createdAt, "UTC:h:MM TT")}
+                </Text>
+                {message.read === false ? (
+                  <Icon
+                    fontSize="small"
+                    color="palegoldenrod"
+                    ml={2}
+                    as={MdDone}
+                  />
+                ) : (
+                  <Icon
+                    fontSize="small"
+                    color="palegoldenrod"
+                    ml={2}
+                    as={MdDoneAll}
+                  />
+                )}
+              </Flex>
             </Box>
           </PopoverTrigger>
           <PopoverContent w="200px" mr={50}>
-            <PopoverHeader>Options</PopoverHeader>
             <PopoverBody p={0}>
               {/* <Button
                 variant="ghost"
@@ -85,7 +106,7 @@ export const Message = ({ message, own, onDeleteClick, id }) => {
             {message.text}
           </Text>
           <Text color={sentColor} fontSize="x-small">
-            {format(message.sentAt, "UTC:h:MM TT")}
+            {format(message.createdAt, "UTC:h:MM TT")}
           </Text>
         </Box>
       )}
