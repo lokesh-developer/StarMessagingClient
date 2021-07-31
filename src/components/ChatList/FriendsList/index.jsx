@@ -13,7 +13,9 @@ export const FriendsList = () => {
   useEffect(() => {
     const getFriends = async () => {
       try {
-        const res = await axios.get("/conversations/" + user?._id);
+        const res = await axios.get(
+          `${process.env.REACT_SERVER_URL}/conversations/` + user?._id
+        );
         localStorage.setItem("friends", JSON.stringify(res.data));
         setFriends(res.data);
         setLoading(true);

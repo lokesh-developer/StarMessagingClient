@@ -26,7 +26,9 @@ export const Friend = ({ conversation }) => {
       setFriendId(friendId);
       if (friendId !== undefined) {
         try {
-          const res = await axios("/users?userId=" + friendId);
+          const res = await axios(
+            `${process.env.REACT_SERVER_URL}/users?userId=` + friendId
+          );
           setFriendUser(res.data);
         } catch (error) {
           console.log(error);
@@ -36,7 +38,9 @@ export const Friend = ({ conversation }) => {
     getUser();
     const getMessages = async () => {
       try {
-        const res = await axios.get("/messages/" + conversation?._id);
+        const res = await axios.get(
+          `${process.env.REACT_SERVER_URL}/messages/` + conversation?._id
+        );
         localStorage.setItem(
           `messages/unread/${conversation?._id}`,
           JSON.stringify(res.data.filter((m) => m.read === false).length)

@@ -23,7 +23,9 @@ export const ChatRequests = () => {
   useEffect(() => {
     const getAllRequests = async () => {
       try {
-        const requests = await axios.get("/requests?userId=" + user._id);
+        const requests = await axios.get(
+          `${process.env.REACT_SERVER_URL}/requests?userId=` + user._id
+        );
         setAllRequests(requests.data);
       } catch (error) {
         console.log(error);

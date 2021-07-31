@@ -19,8 +19,12 @@ export const Search = () => {
     try {
       const res =
         searchQuery.length > 23
-          ? await axios.get("/users?userId=" + searchQuery)
-          : await axios.get("/users?name=" + searchQuery);
+          ? await axios.get(
+              `${process.env.REACT_SERVER_URL}/users?userId=` + searchQuery
+            )
+          : await axios.get(
+              `${process.env.REACT_SERVER_URL}/users?name=` + searchQuery
+            );
       setResult(res.data);
       setLoading(true);
     } catch (error) {

@@ -9,7 +9,7 @@ function Auth() {
   const signinSuccess = async (res) => {
     axios({
       method: "POST",
-      url: "http://localhost:4000/users/googlelogin",
+      url: `${process.env.REACT_SERVER_URL}/users/googlelogin`,
       data: { tokenId: res.tokenId, profile: res.profileObj },
     }).then((response) => {
       console.log(response);

@@ -60,7 +60,8 @@ export const ChatBox = () => {
     const getFriends = async () => {
       try {
         const res = await axios.get(
-          "/conversations/c/" + getConversation?.conversationId
+          `${process.env.REACT_SERVER_URL}/conversations/c/` +
+            getConversation?.conversationId
         );
         currentChat(res.data);
         setLoading(true);
@@ -73,7 +74,8 @@ export const ChatBox = () => {
     const getMessages = async () => {
       try {
         const res = await axios.get(
-          "/messages/" + getConversation.conversationId
+          `${process.env.REACT_SERVER_URL}/messages/` +
+            getConversation.conversationId
         );
         localStorage.setItem(
           `messages/${getConversation.conversationId}`,
@@ -109,7 +111,10 @@ export const ChatBox = () => {
     });
 
     try {
-      const res = await axios.post("/messages", message);
+      const res = await axios.post(
+        `${process.env.REACT_SERVER_URL}/messages`,
+        message
+      );
       setMessages([...messages, res.data]);
       setNewMessage("");
     } catch (error) {
@@ -122,7 +127,9 @@ export const ChatBox = () => {
     const recieverId = chat[0]?.members.find((member) => member !== user._id);
 
     try {
-      const res = await axios.post("/messages/delete/" + messageDeleting);
+      const res = await axios.post(
+        `${process.env.REACT_SERVER_URL}/messages/delete/` + messageDeleting
+      );
       setMessages(messages.filter((m) => m._id !== res.data._id));
       socket?.emit("deleteMessage", {
         previosMessages: [...messages.filter((m) => m._id !== res.data._id)],

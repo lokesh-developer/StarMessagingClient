@@ -25,7 +25,9 @@ export const UserProfile = () => {
   useEffect(() => {
     const getFriendDetails = async () => {
       try {
-        const res = await axios("/users?userId=" + getUser?.userId);
+        const res = await axios(
+          `${process.env.REACT_SERVER_URL}/users?userId=` + getUser?.userId
+        );
         setThatUser(res.data);
       } catch (error) {
         console.log(error);
@@ -40,7 +42,10 @@ export const UserProfile = () => {
       receiversId: getUser?.userId,
     };
     try {
-      const res = await axios.post("/requests/", request);
+      const res = await axios.post(
+        `${process.env.REACT_SERVER_URL}/requests/`,
+        request
+      );
       setRequest(res.data);
     } catch (error) {
       console.log(error);
@@ -50,7 +55,9 @@ export const UserProfile = () => {
   useEffect(() => {
     const getRequests = async () => {
       try {
-        const res = await axios("/requests?userId=" + getUser?.userId);
+        const res = await axios(
+          `${process.env.REACT_SERVER_URL}/requests?userId=` + getUser?.userId
+        );
         setRequest(res.data);
       } catch (error) {
         console.log(error);
