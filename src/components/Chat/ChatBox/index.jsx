@@ -73,10 +73,10 @@ export const ChatBox = () => {
     const getMessages = async () => {
       try {
         const res = await axios.get(
-          "/messages/" + getConversation?.conversationId
+          "/messages/" + getConversation.conversationId
         );
         localStorage.setItem(
-          `messages/${getConversation?.conversationId}`,
+          `messages/${getConversation.conversationId}`,
           JSON.stringify(res.data)
         );
         setMessages(res.data);
@@ -143,7 +143,7 @@ export const ChatBox = () => {
         mt="71px"
         w={["100%", "100%", "100%"]}
         zIndex="-1"
-        sx={{ marginBottom: "70px", scrollBehavior: "smooth" }}
+        sx={{ marginBottom: "70px" }}
         overflowY="auto"
         ref={scrollRef}
       >

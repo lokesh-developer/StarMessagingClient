@@ -11,16 +11,61 @@ import {
   Icon,
 } from "@chakra-ui/react";
 import format from "dateformat";
-// import axios from "axios";
-// import { useEffect, useState } from "react";
+import axios from "axios";
+import { SocketContext } from "../../../../context/SocketContextProvider";
+import { useEffect, useState, useContext } from "react";
+import VisibilitySensor from "react-visibility-sensor";
 import { MdDone, MdDoneAll } from "react-icons/md";
+import { useParams } from "react-router-dom";
 
-export const Message = ({ message, own, onDeleteClick, id }) => {
+export const Message = ({ message, own, onDeleteClick }) => {
   const sentColor = useColorModeValue("gray.400", "gray.400");
+  const [visibility, setVisibility] = useState({
+    visibility: false,
+    messageId: message._id,
+  });
+  const user = JSON.parse(localStorage.getItem("profile"));
+  const socket = useContext(SocketContext);
+  const getConversation = useParams();
+  const [chat, currentChat] = useState([]);
+  const recieverId = chat[0]?.members.find((member) => member !== user._id);
+  const [messageRead, setMessageRead] = useState();
 
-  // useEffect(() => {
-  //   console.log(message);
-  // }, [message]);
+  useEffect(() => {
+    setMessageRead(message.read);
+
+    socket?.on("messageRead", (data) => {
+      setMessageRead(data.messageRead);
+    });
+  }, [message?.read, socket]);
+
+  useEffect(() => {
+    const getFriends = async () => {
+      try {
+        const res = await axios.get(
+          "/conversations/c/" + getConversation?.conversationId
+        );
+        currentChat(res.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getFriends();
+  }, [getConversation]);
+
+  useEffect(() => {
+    if (visibility.visibility === true) {
+      const readMessage = async () => {
+        const res = await axios.post(`/messages/read/${visibility?.messageId}`);
+        setMessageRead(res.data.read);
+        socket?.emit("readMessage", {
+          messageRead: message.read,
+          recieverId,
+        });
+      };
+      readMessage();
+    }
+  }, [recieverId, socket, visibility, message]);
 
   return (
     <>
@@ -47,7 +92,7 @@ export const Message = ({ message, own, onDeleteClick, id }) => {
                 <Text color={sentColor} fontSize="x-small">
                   {format(message.createdAt, "UTC:h:MM TT")}
                 </Text>
-                {message.read ? (
+                {messageRead ? (
                   <Icon
                     fontSize="small"
                     color="palegoldenrod"
@@ -89,26 +134,38 @@ export const Message = ({ message, own, onDeleteClick, id }) => {
           </PopoverContent>
         </Popover>
       ) : (
-        <Box
-          as={Flex}
-          p={3}
-          bg="blue.600"
-          flexDir="column"
-          borderRightRadius="15px"
-          borderTopLeftRadius="15px"
-          maxW="50%"
-          float="left"
-          style={{ clear: "both" }}
-          m={2}
-          alignItems="flex-start"
+        <VisibilitySensor
+          intervalDelay={1}
+          delayedCall={true}
+          scrollCheck={true}
+          onChange={(isVisible) => {
+            setVisibility({
+              visibility: isVisible,
+              messageId: message._id,
+            });
+          }}
         >
-          <Text style={{ wordBreak: "break-all" }} color="white">
-            {message.text}
-          </Text>
-          <Text color={sentColor} fontSize="x-small">
-            {format(message.createdAt, "UTC:h:MM TT")}
-          </Text>
-        </Box>
+          <Box
+            as={Flex}
+            p={3}
+            bg="blue.600"
+            flexDir="column"
+            borderRightRadius="15px"
+            borderTopLeftRadius="15px"
+            maxW="50%"
+            float="left"
+            style={{ clear: "both" }}
+            m={2}
+            alignItems="flex-start"
+          >
+            <Text style={{ wordBreak: "break-all" }} color="white">
+              {message.text}
+            </Text>
+            <Text color={sentColor} fontSize="x-small">
+              {format(message.createdAt, "UTC:h:MM TT")}
+            </Text>
+          </Box>
+        </VisibilitySensor>
       )}
     </>
   );

@@ -5,6 +5,7 @@ import {
   LinkOverlay,
   Heading,
   Avatar,
+  Tag,
   Flex,
   useColorModeValue,
 } from "@chakra-ui/react";
@@ -17,6 +18,7 @@ export const Friend = ({ conversation }) => {
   const [friendUser, setFriendUser] = useState(null);
   const user = JSON.parse(localStorage.getItem("profile"));
   const [friendId, setFriendId] = useState();
+  const [unreadMessages, setUnreadMessages] = useState(0);
 
   useEffect(() => {
     const getUser = async () => {
@@ -32,6 +34,23 @@ export const Friend = ({ conversation }) => {
       }
     };
     getUser();
+    const getMessages = async () => {
+      try {
+        const res = await axios.get("/messages/" + conversation?._id);
+        localStorage.setItem(
+          `messages/unread/${conversation?._id}`,
+          JSON.stringify(res.data.filter((m) => m.read === false).length)
+        );
+        setUnreadMessages(res.data.filter((m) => m.read === false).length);
+        console.log();
+      } catch (error) {
+        const offlineMessages = JSON.parse(
+          localStorage.getItem(`messages/unread/${conversation?._id}`)
+        );
+        setUnreadMessages(offlineMessages);
+      }
+    };
+    getMessages();
   }, [user._id, conversation]);
 
   return (
@@ -41,12 +60,17 @@ export const Friend = ({ conversation }) => {
           as={Link}
           to={"/chats/conversations/" + conversation._id}
         />
-        <Flex alignItems="center" p="10px">
-          <Avatar src={friendUser?.profileUrl} />
-          <Box p={3}>
-            <Heading size="md">{friendUser?.name}</Heading>
-            <OnlineUser friendId={friendId} />
-          </Box>
+        <Flex alignItems="center" justifyContent="space-between" p="10px">
+          <Flex alignItems="center">
+            <Avatar src={friendUser?.profileUrl} />
+            <Box p={3}>
+              <Heading size="md">{friendUser?.name}</Heading>
+              <OnlineUser friendId={friendId} />
+            </Box>
+          </Flex>
+          <Tag colorScheme="telegram" borderRadius="full">
+            {unreadMessages}
+          </Tag>
         </Flex>
       </LinkBox>
     </>
