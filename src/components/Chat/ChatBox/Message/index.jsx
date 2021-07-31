@@ -47,19 +47,19 @@ export const Message = ({ message, own, onDeleteClick, id }) => {
                 <Text color={sentColor} fontSize="x-small">
                   {format(message.createdAt, "UTC:h:MM TT")}
                 </Text>
-                {message.read === false ? (
+                {message.read ? (
                   <Icon
                     fontSize="small"
                     color="palegoldenrod"
                     ml={2}
-                    as={MdDone}
+                    as={MdDoneAll}
                   />
                 ) : (
                   <Icon
                     fontSize="small"
                     color="palegoldenrod"
                     ml={2}
-                    as={MdDoneAll}
+                    as={MdDone}
                   />
                 )}
               </Flex>

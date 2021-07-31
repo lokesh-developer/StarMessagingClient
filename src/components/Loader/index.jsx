@@ -1,8 +1,17 @@
-import { Progress, Box } from "@chakra-ui/react";
+import { Box, Spinner, Flex } from "@chakra-ui/react";
+
 export const Loader = () => {
   return (
-    <Box w="100vw" pos="fixed" left="0px" top="0px">
-      <Progress w="full" size="xs" colorScheme="purple" isIndeterminate />
+    <Box
+      as={Flex}
+      h="full"
+      w="full"
+      bg={{ color: "white", opacity: 0.5 }}
+      alignItems="center"
+      justifyContent="center"
+      pos="fixed"
+    >
+      <Spinner size="xl" />
     </Box>
   );
 };

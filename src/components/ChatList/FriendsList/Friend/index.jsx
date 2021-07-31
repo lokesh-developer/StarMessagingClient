@@ -35,15 +35,20 @@ export const Friend = ({ conversation }) => {
   }, [user._id, conversation]);
 
   return (
-    <LinkBox _hover={{ bg }}>
-      <LinkOverlay as={Link} to={"/chats/conversations/" + conversation._id} />
-      <Flex alignItems="center" p="10px">
-        <Avatar src={friendUser?.profileUrl} />
-        <Box p={3}>
-          <Heading size="md">{friendUser?.name}</Heading>
-          <OnlineUser friendId={friendId} />
-        </Box>
-      </Flex>
-    </LinkBox>
+    <>
+      <LinkBox _hover={{ bg }}>
+        <LinkOverlay
+          as={Link}
+          to={"/chats/conversations/" + conversation._id}
+        />
+        <Flex alignItems="center" p="10px">
+          <Avatar src={friendUser?.profileUrl} />
+          <Box p={3}>
+            <Heading size="md">{friendUser?.name}</Heading>
+            <OnlineUser friendId={friendId} />
+          </Box>
+        </Flex>
+      </LinkBox>
+    </>
   );
 };

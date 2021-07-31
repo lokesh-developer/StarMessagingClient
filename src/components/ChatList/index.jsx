@@ -6,6 +6,7 @@ import {
   Box,
   useColorModeValue,
   Slide,
+  Divider,
 } from "@chakra-ui/react";
 import { Search } from "../Search";
 import { Sidebar } from "../Sidebar";
@@ -17,29 +18,38 @@ export const ChatList = () => {
   const bg = useColorModeValue("gray.100", "gray.700");
 
   return (
-    <Slide in={true} direction="left">
-      <Box
-        w={["100%", "100%", "35%"]}
-        h="full"
-        pos="fixed"
-        overflowY="scroll"
-        top="0"
-        left="0"
-        bgColor={bg}
-        style={{ scrollBehavior: "smooth" }}
-      >
-        <Flex p={3} justifyContent="space-around" alignItems="center">
-          <IconButton
-            onClick={onOpen}
-            variant="ghost"
-            icon={<MdMenu fontSize="30px" />}
+    <>
+      <Slide in={true} direction="left">
+        <Box
+          w={["100%", "100%", "35%"]}
+          h="full"
+          pos="fixed"
+          overflowY="scroll"
+          top="0"
+          left="0"
+          bgColor={bg}
+          style={{ scrollBehavior: "smooth" }}
+        >
+          <Flex p={3} justifyContent="space-around" alignItems="center">
+            <IconButton
+              onClick={onOpen}
+              variant="ghost"
+              icon={<MdMenu fontSize="30px" />}
+            />
+            <Search />
+          </Flex>
+          {/* <SavedMessages /> */}
+          <FriendsList />
+          <Divider
+            orientation="vertical"
+            pos="fixed"
+            left={["34.5%", "100%", "100%"]}
+            top="0"
+            zIndex="99999"
           />
-          <Search />
-        </Flex>
-        {/* <SavedMessages /> */}
-        <FriendsList />
-      </Box>
-      <Sidebar Close={onClose} Open={isOpen} />
-    </Slide>
+        </Box>
+        <Sidebar Close={onClose} Open={isOpen} />
+      </Slide>
+    </>
   );
 };

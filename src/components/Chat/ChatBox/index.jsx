@@ -108,8 +108,6 @@ export const ChatBox = () => {
       sentAt: date,
     });
 
-    console.log(socket);
-
     try {
       const res = await axios.post("/messages", message);
       setMessages([...messages, res.data]);

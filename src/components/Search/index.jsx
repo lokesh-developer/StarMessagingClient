@@ -11,11 +11,11 @@ export const Search = () => {
   const [loading, setLoading] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const isDisabled = searchQuery === "" ? true : false;
-  const openClose = () => (searchQuery === "" ? onClose : onOpen);
+  const openClose = searchQuery === "" ? onClose : onOpen;
   const display = isOpen ? "block" : "none";
 
   const searchFriends = async (e) => {
-    e.preventDefault();
+    e?.preventDefault();
     try {
       const res =
         searchQuery.length > 23
@@ -40,10 +40,11 @@ export const Search = () => {
             onChange={(e) => {
               setSearchQuery(e.target.value);
               openClose();
+              searchFriends();
             }}
-            onKeyPress={openClose()}
+            onKeyDownCapture={openClose}
             value={searchQuery}
-            onClick={openClose()}
+            onClick={openClose}
           />
           <IconButton
             icon={<MdSearch fontSize="24px" />}
