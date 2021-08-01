@@ -43,7 +43,8 @@ export const ChatList = () => {
           <Divider
             orientation="vertical"
             pos="fixed"
-            left={["34.5%", "100%", "100%"]}
+            left="34.9%"
+            display={["none", "block"]}
             top="0"
             zIndex="99999"
           />
