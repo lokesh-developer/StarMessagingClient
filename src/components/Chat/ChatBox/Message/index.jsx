@@ -60,7 +60,7 @@ export const Message = ({ message, own, onDeleteClick }) => {
         const res = await axios.post(
           `${process.env.REACT_APP_SERVER_URL}/messages/read/${visibility?.messageId}`
         );
-        setMessageRead(res.data.read);
+        setMessageRead(res.data?.read);
         socket?.emit("readMessage", {
           messageRead: message.read,
           recieverId,
