@@ -7,7 +7,7 @@ const SocketContextProvider = (props) => {
   const [socket, setSocket] = useState();
 
   useEffect(() => {
-    setSocket(io("https://star-messaging-socket.herokuapp.com/"));
+    setSocket(io("ws://star-messaging-socket.herokuapp.com/"));
   }, []);
 
   return (
