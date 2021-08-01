@@ -7,7 +7,7 @@ const SocketContextProvider = (props) => {
   const [socket, setSocket] = useState();
 
   useEffect(() => {
-    setSocket(io("ws://localhost:5000"));
+    setSocket(io("ws://star-messaging-socket.herokuapp.com/"));
   }, []);
 
   return (
