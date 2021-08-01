@@ -35,7 +35,7 @@ export const ChatHeader = () => {
     const getFriends = async () => {
       try {
         const res = await axios.get(
-          `${process.env.REACT_SERVER_URL}/conversations/c/` +
+          `${process.env.REACT_APP_SERVER_URL}/conversations/c/` +
             getConversation?.conversationId
         );
         localStorage.setItem(
@@ -60,7 +60,7 @@ export const ChatHeader = () => {
       if (friendId !== undefined) {
         try {
           const res = await axios.get(
-            `${process.env.REACT_SERVER_URL}/users?userId=` + friendId
+            `${process.env.REACT_APP_SERVER_URL}/users?userId=` + friendId
           );
           localStorage.setItem(
             `conversation/friend/user/${friendId}`,

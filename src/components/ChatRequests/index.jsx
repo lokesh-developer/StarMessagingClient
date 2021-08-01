@@ -24,7 +24,7 @@ export const ChatRequests = () => {
     const getAllRequests = async () => {
       try {
         const requests = await axios.get(
-          `${process.env.REACT_SERVER_URL}/requests?userId=` + user._id
+          `${process.env.REACT_APP_SERVER_URL}/requests?userId=` + user._id
         );
         setAllRequests(requests.data);
       } catch (error) {

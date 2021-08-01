@@ -60,7 +60,7 @@ export const ChatBox = () => {
     const getFriends = async () => {
       try {
         const res = await axios.get(
-          `${process.env.REACT_SERVER_URL}/conversations/c/` +
+          `${process.env.REACT_APP_SERVER_URL}/conversations/c/` +
             getConversation?.conversationId
         );
         currentChat(res.data);
@@ -74,7 +74,7 @@ export const ChatBox = () => {
     const getMessages = async () => {
       try {
         const res = await axios.get(
-          `${process.env.REACT_SERVER_URL}/messages/` +
+          `${process.env.REACT_APP_SERVER_URL}/messages/` +
             getConversation.conversationId
         );
         localStorage.setItem(
@@ -112,7 +112,7 @@ export const ChatBox = () => {
 
     try {
       const res = await axios.post(
-        `${process.env.REACT_SERVER_URL}/messages`,
+        `${process.env.REACT_APP_SERVER_URL}/messages`,
         message
       );
       setMessages([...messages, res.data]);
@@ -128,7 +128,7 @@ export const ChatBox = () => {
 
     try {
       const res = await axios.post(
-        `${process.env.REACT_SERVER_URL}/messages/delete/` + messageDeleting
+        `${process.env.REACT_APP_SERVER_URL}/messages/delete/` + messageDeleting
       );
       setMessages(messages.filter((m) => m._id !== res.data._id));
       socket?.emit("deleteMessage", {

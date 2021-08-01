@@ -20,10 +20,10 @@ export const Search = () => {
       const res =
         searchQuery.length > 23
           ? await axios.get(
-              `${process.env.REACT_SERVER_URL}/users?userId=` + searchQuery
+              `${process.env.REACT_APP_SERVER_URL}/users?userId=` + searchQuery
             )
           : await axios.get(
-              `${process.env.REACT_SERVER_URL}/users?name=` + searchQuery
+              `${process.env.REACT_APP_SERVER_URL}/users?name=` + searchQuery
             );
       setResult(res.data);
       setLoading(true);

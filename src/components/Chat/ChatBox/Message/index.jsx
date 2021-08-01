@@ -43,7 +43,7 @@ export const Message = ({ message, own, onDeleteClick }) => {
     const getFriends = async () => {
       try {
         const res = await axios.get(
-          `${process.env.REACT_SERVER_URL}/conversations/c/` +
+          `${process.env.REACT_APP_SERVER_URL}/conversations/c/` +
             getConversation?.conversationId
         );
         currentChat(res.data);
@@ -58,7 +58,7 @@ export const Message = ({ message, own, onDeleteClick }) => {
     if (visibility.visibility === true) {
       const readMessage = async () => {
         const res = await axios.post(
-          `${process.env.REACT_SERVER_URL}/messages/read/${visibility?.messageId}`
+          `${process.env.REACT_APP_SERVER_URL}/messages/read/${visibility?.messageId}`
         );
         setMessageRead(res.data.read);
         socket?.emit("readMessage", {

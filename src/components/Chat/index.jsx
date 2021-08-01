@@ -18,7 +18,7 @@ export const Chat = () => {
       const getFriends = async () => {
         try {
           const res = await axios.get(
-            `${process.env.REACT_SERVER_URL}/conversations/c/` +
+            `${process.env.REACT_APP_SERVER_URL}/conversations/c/` +
               getConversation?.conversationId
           );
           setAnonymous(

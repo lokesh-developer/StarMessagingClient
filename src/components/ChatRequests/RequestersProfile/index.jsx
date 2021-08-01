@@ -31,10 +31,10 @@ export const RequestersProfile = ({ request }) => {
     try {
       const req = await axios.all([
         axios.post(
-          `${process.env.REACT_SERVER_URL}/conversations`,
+          `${process.env.REACT_APP_SERVER_URL}/conversations`,
           conversationData
         ),
-        axios.post(`${process.env.REACT_SERVER_URL}/requests/accept`, data),
+        axios.post(`${process.env.REACT_APP_SERVER_URL}/requests/accept`, data),
       ]);
       setRequesting(req[1].data);
       history.push(`/chats/conversations/${req[0].data._id}`);
@@ -49,7 +49,8 @@ export const RequestersProfile = ({ request }) => {
     const getReciever = async () => {
       try {
         const res = await axios.get(
-          `${process.env.REACT_SERVER_URL}/users?userId=` + request.receiversId
+          `${process.env.REACT_APP_SERVER_URL}/users?userId=` +
+            request.receiversId
         );
         setReceiverProfile(res.data);
       } catch (error) {
@@ -60,7 +61,8 @@ export const RequestersProfile = ({ request }) => {
     const getSender = async () => {
       try {
         const res = await axios.get(
-          `${process.env.REACT_SERVER_URL}/users?userId=` + request.sendersId
+          `${process.env.REACT_APP_SERVER_URL}/users?userId=` +
+            request.sendersId
         );
         setSenderProfile(res.data);
       } catch (error) {

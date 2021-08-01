@@ -26,7 +26,7 @@ export const UserProfile = () => {
     const getFriendDetails = async () => {
       try {
         const res = await axios(
-          `${process.env.REACT_SERVER_URL}/users?userId=` + getUser?.userId
+          `${process.env.REACT_APP_SERVER_URL}/users?userId=` + getUser?.userId
         );
         setThatUser(res.data);
       } catch (error) {
@@ -43,7 +43,7 @@ export const UserProfile = () => {
     };
     try {
       const res = await axios.post(
-        `${process.env.REACT_SERVER_URL}/requests/`,
+        `${process.env.REACT_APP_SERVER_URL}/requests/`,
         request
       );
       setRequest(res.data);
@@ -56,7 +56,8 @@ export const UserProfile = () => {
     const getRequests = async () => {
       try {
         const res = await axios(
-          `${process.env.REACT_SERVER_URL}/requests?userId=` + getUser?.userId
+          `${process.env.REACT_APP_SERVER_URL}/requests?userId=` +
+            getUser?.userId
         );
         setRequest(res.data);
       } catch (error) {
