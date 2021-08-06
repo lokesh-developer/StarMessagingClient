@@ -8,6 +8,7 @@ import {
   ModalCloseButton,
   useColorModeValue,
 } from "@chakra-ui/react";
+
 export const ProfileModal = ({ isOpen, onClose }) => {
   const bg = useColorModeValue("gray.100", "gray.800");
   return (

@@ -14,7 +14,7 @@ import { SocketContext } from "../../../context/SocketContextProvider";
 import { Loader } from "../../Loader";
 import { toDate } from "date-fns-tz";
 import { format } from "date-fns";
-import { IsOnline } from "../../../lib/IsOnline";
+// import { IsOnline } from "../../../lib/IsOnline";
 
 export const ChatBox = () => {
   const socket = useContext(SocketContext);

@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Flex, Text, useColorModeValue, Divider } from "@chakra-ui/react";
 import axios from "axios";
-import { Loader } from "../../Loader";
-import { Friend } from "./Friend";
+import loadable from "@loadable/component";
 
 export const FriendsList = () => {
+  const Loader = loadable(() =>
+    import("../../Loader").then((mod) => mod.Loader)
+  );
+  const Friend = loadable(() => import("./Friend").then((mod) => mod.Friend));
   const user = JSON.parse(localStorage.getItem("profile"));
   const text = useColorModeValue("gray.600", "gray.300");
   const [friends, setFriends] = useState([]);

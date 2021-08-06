@@ -8,12 +8,17 @@ import {
   Slide,
   Divider,
 } from "@chakra-ui/react";
-import { Search } from "../Search";
-import { Sidebar } from "../Sidebar";
-import { FriendsList } from "./FriendsList";
+import loadable from "@loadable/component";
 import { MdMenu } from "react-icons/md";
 
 export const ChatList = () => {
+  const Search = loadable(() => import("../Search").then((mod) => mod.Search));
+  const Sidebar = loadable(() =>
+    import("../Sidebar").then((mod) => mod.Sidebar)
+  );
+  const FriendsList = loadable(() =>
+    import("./FriendsList").then((mod) => mod.FriendsList)
+  );
   const { isOpen, onOpen, onClose } = useDisclosure();
   const bg = useColorModeValue("gray.100", "gray.700");
 

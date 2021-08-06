@@ -9,11 +9,14 @@ import {
 } from "@chakra-ui/react";
 import { useHistory } from "react-router-dom";
 import { MdKeyboardArrowLeft } from "react-icons/md";
-import { RequestersProfile } from "./RequestersProfile";
+import loadable from "@loadable/component";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
 export const ChatRequests = () => {
+  const RequestersProfile = loadable(() =>
+    import("./RequestersProfile").then((mod) => mod.RequestersProfile)
+  );
   const bg = useColorModeValue("gray.100", "gray.700");
   const history = useHistory();
   const user = JSON.parse(localStorage.getItem("profile"));
@@ -43,6 +46,7 @@ export const ChatRequests = () => {
       w={["100%", "100%", "65%"]}
       h="full"
       flexDir="column"
+      overflowY="scroll"
       bg={bg}
     >
       <Flex p={4} alignItems="center">
@@ -53,7 +57,7 @@ export const ChatRequests = () => {
           mr={4}
           alignItems="center"
           justifyContent="center"
-          onClick={() => history.goBack()}
+          onClick={() => history.push("/chats")}
           d={["block", "block", "none"]}
         />
         <Heading size="md">Chat Requests</Heading>

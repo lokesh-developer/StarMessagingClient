@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { Box, Tag, Flex, SlideFade, Divider, useToast } from "@chakra-ui/react";
-import { ChatHeader } from "./ChatHeader";
+import { Box, Tag, Flex, Divider, useToast } from "@chakra-ui/react";
+import loadable from "@loadable/component";
 import { useParams } from "react-router";
-import { ChatBox } from "./ChatBox";
 import axios from "axios";
 
 export const Chat = () => {
+  const ChatHeader = loadable(() =>
+    import("./ChatHeader").then((mod) => mod.ChatHeader)
+  );
+  const ChatBox = loadable(() =>
+    import("./ChatBox").then((mod) => mod.ChatBox)
+  );
   const [currentChat, setCurrenChat] = useState(null);
   const getConversation = useParams();
   const user = JSON.parse(localStorage.getItem("profile"));
@@ -74,14 +79,7 @@ export const Chat = () => {
                 justifyContent="center"
                 h="full"
               >
-                <SlideFade
-                  reverse={true}
-                  unmountOnExit={true}
-                  offsetX={40}
-                  in={true}
-                >
-                  <ChatHeader />
-                </SlideFade>
+                <ChatHeader />
                 <ChatBox />
               </Box>
             </Box>

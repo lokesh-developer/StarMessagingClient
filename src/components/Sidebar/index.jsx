@@ -65,7 +65,7 @@ export const Sidebar = ({ Open, Close }) => {
             <Logo width="70px" height="70px" />
             <Text>
               <Text as="b">&copy; Star</Text> messaging app{" "}
-              <Text as="b">v22.05.2003</Text>
+              <Text as="b">v0.22.05.2003</Text>
             </Text>
           </DrawerFooter>
         </DrawerContent>

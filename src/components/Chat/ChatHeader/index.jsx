@@ -90,7 +90,7 @@ export const ChatHeader = () => {
           variant="link"
           outline="none"
           leftIcon={<MdKeyboardArrowLeft fontSize="27px" />}
-          onClick={() => history.goBack()}
+          onClick={() => history.push("/chats")}
           d={["block", "block", "none"]}
         ></Button>
         <Flex w="full">
