@@ -4,15 +4,10 @@ import {
   useColorModeValue,
   Text,
   Button,
-  Menu,
-  MenuButton,
-  IconButton,
-  MenuItem,
-  MenuList,
   useDisclosure,
 } from "@chakra-ui/react";
 import { useHistory } from "react-router-dom";
-import { MdMoreVert } from "react-icons/md";
+// import { MdMoreVert } from "react-icons/md";
 import { ProfileModal } from "../../ProfileModal";
 import { MdKeyboardArrowLeft } from "react-icons/md";
 import { useEffect, useState } from "react";
@@ -22,7 +17,7 @@ import { OnlineUser } from "../../OnlineUser";
 
 export const ChatHeader = () => {
   const bg = useColorModeValue("gray.100", "gray.700");
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { isOpen, onClose } = useDisclosure();
   const history = useHistory();
   const [myFriend, setMyFriend] = useState([]);
   const [friend, setFriend] = useState({});
@@ -100,7 +95,7 @@ export const ChatHeader = () => {
             <OnlineUser friendId={myFriend?._id} />
           </Flex>
         </Flex>
-        <Flex>
+        {/* <Flex>
           <Menu>
             <MenuButton
               as={IconButton}
@@ -113,7 +108,7 @@ export const ChatHeader = () => {
               <MenuItem>Delete Chat</MenuItem>
             </MenuList>
           </Menu>
-        </Flex>
+        </Flex> */}
         <ProfileModal isOpen={isOpen} onClose={onClose} />
       </Flex>
     </>
