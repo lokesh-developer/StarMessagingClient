@@ -14,6 +14,7 @@ import { SocketContext } from "../../../context/SocketContextProvider";
 import { Loader } from "../../Loader";
 import { toDate } from "date-fns-tz";
 import { format } from "date-fns";
+import { IsOnline } from "../../../lib/IsOnline";
 
 export const ChatBox = () => {
   const socket = useContext(SocketContext);
@@ -32,6 +33,8 @@ export const ChatBox = () => {
     timeZone: "Asia/Kolkata",
   });
   const date = toDate(currentDate, { timeZone: "UTC" });
+  // const isOnline = IsOnline(user._id);
+  // console.log(isOnline);
 
   useEffect(() => {
     socket?.on("recieveMessage", (data) => {

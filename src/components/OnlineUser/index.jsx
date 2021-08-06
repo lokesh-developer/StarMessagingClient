@@ -30,7 +30,7 @@ export const OnlineUser = ({ friendId }) => {
       {friendOnline ? (
         <Text color="telegram.600">Online</Text>
       ) : (
-        <Text color={lastseen}>last seen recently</Text>
+        <Text color={lastseen}>Offline</Text>
       )}
     </>
   );
