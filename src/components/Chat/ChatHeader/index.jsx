@@ -18,7 +18,6 @@ import { MdKeyboardArrowLeft } from "react-icons/md";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import axios from "axios";
-import { Loader } from "../../Loader";
 import { OnlineUser } from "../../OnlineUser";
 
 export const ChatHeader = () => {
@@ -26,7 +25,6 @@ export const ChatHeader = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const history = useHistory();
   const [myFriend, setMyFriend] = useState([]);
-  const [loading, setLoading] = useState(false);
   const [friend, setFriend] = useState({});
   const getConversation = useParams();
   const user = JSON.parse(localStorage.getItem("profile"));
@@ -43,7 +41,6 @@ export const ChatHeader = () => {
           JSON.stringify(res.data)
         );
         setFriend(res.data);
-        setLoading(true);
       } catch (error) {
         const offlineFriend = JSON.parse(
           localStorage.getItem(`friend/${getConversation?.conversationId}`)
@@ -86,7 +83,6 @@ export const ChatHeader = () => {
         bg={bg}
         w={["100%", "100%", "65%"]}
         top="0"
-        cursor="pointer"
         alignItems="center"
         justifyContent="space-between"
       >
@@ -120,7 +116,6 @@ export const ChatHeader = () => {
         </Flex>
         <ProfileModal isOpen={isOpen} onClose={onClose} />
       </Flex>
-      {loading !== true ? <Loader /> : null}
     </>
   );
 };
