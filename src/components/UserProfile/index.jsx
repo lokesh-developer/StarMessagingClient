@@ -46,7 +46,7 @@ export const UserProfile = () => {
         `${process.env.REACT_APP_SERVER_URL}/requests/`,
         request
       );
-      setRequest(res.data);
+      setRequest([res.data]);
     } catch (error) {
       console.log(error);
     }
@@ -68,14 +68,13 @@ export const UserProfile = () => {
   }, [getUser?.userId]);
 
   useEffect(() => {
-    setRequested(
-      request
-        ?.filter((req) => req.sendersId === user._id)
-        ?.map((req) => req.sendersId === user._id)
-    );
+    const filteredRequests = request
+      ?.filter((req) => req.sendersId === user._id)
+      .map((req) => req.sendersId === user._id);
+    setRequested(filteredRequests);
   }, [request, user._id]);
 
-  console.log(requested);
+  console.log(requested, request);
 
   return (
     <>
