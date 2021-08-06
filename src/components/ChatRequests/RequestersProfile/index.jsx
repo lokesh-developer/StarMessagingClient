@@ -86,10 +86,10 @@ export const RequestersProfile = ({ request }) => {
           w="full"
         >
           <Flex>
-            <Avatar src={senderProfile.profileUrl} />
+            <Avatar src={senderProfile?.profileUrl} />
             <Flex flexDir="column" ml={4}>
-              <Text as="b">{senderProfile.name}</Text>
-              <Text as="i">{senderProfile.email}</Text>
+              <Text as="b">{senderProfile?.name}</Text>
+              <Text as="i">{senderProfile?.email}</Text>
             </Flex>
           </Flex>
           <Flex>
