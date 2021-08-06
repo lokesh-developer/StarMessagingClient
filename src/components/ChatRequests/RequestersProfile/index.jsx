@@ -28,19 +28,22 @@ export const RequestersProfile = ({ request }) => {
       sendersId: request.sendersId,
       recieversId: request.receiversId,
     };
-    try {
-      const req = await axios.all([
+
+    axios
+      .all([
         axios.post(
           `${process.env.REACT_APP_SERVER_URL}/conversations`,
           conversationData
         ),
         axios.post(`${process.env.REACT_APP_SERVER_URL}/requests/accept`, data),
-      ]);
-      setRequesting(req[1].data);
-      history.push(`/chats/conversations/${req[0].data._id}`);
-    } catch (error) {
-      console.log(error);
-    }
+      ])
+      .then((req) => {
+        setRequesting(req[1].data);
+        history.push(`/chats/conversations/${req[0].data._id}`);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
   const rejectRequest = () => {};
 
@@ -136,10 +139,10 @@ export const RequestersProfile = ({ request }) => {
             w="full"
           >
             <Flex>
-              <Avatar src={receiverProfile.profileUrl} />
+              <Avatar src={receiverProfile?.profileUrl} />
               <Flex flexDir="column" ml={4}>
-                <Text as="b">{receiverProfile.name}</Text>
-                <Text as="i">{receiverProfile.email}</Text>
+                <Text as="b">{receiverProfile?.name}</Text>
+                <Text as="i">{receiverProfile?.email}</Text>
               </Flex>
             </Flex>
             <Flex>

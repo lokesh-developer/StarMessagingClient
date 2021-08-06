@@ -3,11 +3,11 @@ import {
   ModalOverlay,
   ModalContent,
   ModalHeader,
-  ModalFooter,
   ModalBody,
   ModalCloseButton,
   useColorModeValue,
 } from "@chakra-ui/react";
+import { MainProfile } from "./MainProfile";
 
 export const ProfileModal = ({ isOpen, onClose }) => {
   const bg = useColorModeValue("gray.100", "gray.800");
@@ -23,9 +23,9 @@ export const ProfileModal = ({ isOpen, onClose }) => {
         <ModalContent>
           <ModalHeader bg={bg}>User Info</ModalHeader>
           <ModalCloseButton />
-          <ModalBody></ModalBody>
-
-          <ModalFooter></ModalFooter>
+          <ModalBody>
+            <MainProfile />
+          </ModalBody>
         </ModalContent>
       </Modal>
     </>

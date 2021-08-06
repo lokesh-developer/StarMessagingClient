@@ -13,6 +13,7 @@ import {
 import { FaTelegram, FaWhatsapp } from "react-icons/fa";
 
 export const ShareModal = ({ isOpen, onClose, content }) => {
+  const user = JSON.parse(localStorage.getItem("profile"));
   return (
     <>
       <Modal
@@ -35,7 +36,7 @@ export const ShareModal = ({ isOpen, onClose, content }) => {
                 size="lg"
                 borderRadius="full"
                 as="a"
-                href={`https://t.me/share/url?text=${content}&url=${process.env.PUBLIC_URL_OF_SITE}`}
+                href={`https://t.me/share/url?text=${content}&url=https://star-messaging-client.vercel.app/chats/users/${user._id}`}
                 target="_blank"
                 rel="noopenner"
               />

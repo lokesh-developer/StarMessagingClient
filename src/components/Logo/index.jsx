@@ -7,14 +7,13 @@ export const Logo = ({ width, height }) => {
     autoplay: true,
     animationData: logo,
   };
+
   return (
-    <>
-      <Lottie
-        width={width}
-        height={height}
-        style={{ cursor: "default", margin: "0" }}
-        options={logoAni}
-      />
-    </>
+    <Lottie
+      width={width}
+      height={height}
+      style={{ cursor: "default", margin: "0" }}
+      options={logoAni}
+    />
   );
 };

@@ -30,11 +30,17 @@ export const Sidebar = ({ Open, Close }) => {
     history.push("/");
   };
   const { isOpen, onOpen, onClose } = useDisclosure();
+
   return (
     <>
-      <Drawer isOpen={Open} placement="left" onClose={Close}>
+      <Drawer
+        motionPreset="scale"
+        isOpen={Open}
+        placement="left"
+        onClose={Close}
+      >
         <DrawerOverlay />
-        <DrawerContent>
+        <DrawerContent motionPreset="scale">
           <DrawerCloseButton />
           <DrawerHeader p={0} bg={bg}>
             <SideBarProfile />
@@ -64,7 +70,7 @@ export const Sidebar = ({ Open, Close }) => {
           <DrawerFooter>
             <Logo width="70px" height="70px" />
             <Text>
-              <Text as="b">&copy; Star</Text> messaging app{" "}
+              <Text as="b">&copy; Star</Text> messenger app{" "}
               <Text as="b">v0.22.05.2003</Text>
             </Text>
           </DrawerFooter>

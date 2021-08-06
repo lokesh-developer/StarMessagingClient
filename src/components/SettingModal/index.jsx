@@ -98,7 +98,11 @@ export const SettingModal = ({ Open, Close }) => {
           </Box>
         </ModalBody>
       </ModalContent>
-      <ShareModal onClose={onClose} isOpen={isOpen} content={user._id} />
+      <ShareModal
+        onClose={onClose}
+        isOpen={isOpen}
+        content={`Send me request on https://star-messaging-client.vercel.app/chats/users/${user._id} to start a conversation.`}
+      />
     </Modal>
   );
 };
