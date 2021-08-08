@@ -45,7 +45,7 @@ export const ChatList = () => {
           orientation="vertical"
           pos="fixed"
           left="34.9%"
-          d={["none", "block"]}
+          d={["none", "none", "block"]}
           top="0"
           zIndex="99999"
         />

@@ -1,17 +1,30 @@
-import { Box, Spinner, Flex } from "@chakra-ui/react";
+import { Spinner, Flex } from "@chakra-ui/react";
 
 export const Loader = () => {
   return (
-    <Box
-      as={Flex}
-      h="full"
-      w="full"
-      bg={{ color: "white", opacity: 0.5 }}
+    <Flex
+      h="100vh"
+      w="100vw"
       alignItems="center"
       justifyContent="center"
-      pos="fixed"
+      position="fixed"
+      top="0"
+      left="0"
+      right="0"
+      bottom="0"
+      zIndex="999"
     >
-      <Spinner size="xl" />
-    </Box>
+      <Flex
+        w="min-content"
+        h="min-content"
+        bg="whiteAlpha.400"
+        borderRadius="full"
+        p={1}
+        alignItems="center"
+        justifyContent="center"
+      >
+        <Spinner size="lg" />
+      </Flex>
+    </Flex>
   );
 };

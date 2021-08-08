@@ -120,7 +120,7 @@ export const UserProfile = () => {
               mt={4}
               variant="link"
               outline="none"
-              onClick={() => history.push("/")}
+              onClick={() => history.push("/chats")}
               d={["block", "block", "none"]}
             >
               Cancel

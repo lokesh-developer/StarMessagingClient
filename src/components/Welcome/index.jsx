@@ -1,5 +1,5 @@
 import { SlideFade, Heading, Flex } from "@chakra-ui/react";
-import Lottie from "react-lottie";
+import { Lottie } from "@crello/react-lottie";
 import { logo } from "../../lib/lottie";
 
 export const Welcome = () => {
@@ -38,7 +38,7 @@ export const Welcome = () => {
           offsetY={40}
         >
           <Lottie
-            options={logoAni}
+            config={logoAni}
             height="100px"
             width="100px"
             style={{ cursor: "default", margin: "0" }}

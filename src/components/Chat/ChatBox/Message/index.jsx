@@ -9,14 +9,14 @@ import {
   Button,
   PopoverBody,
   Icon,
-  Fade,
+  SlideFade,
 } from "@chakra-ui/react";
 import format from "dateformat";
 import axios from "axios";
 import { SocketContext } from "../../../../context/SocketContextProvider";
 import { useEffect, useState, useContext } from "react";
 import VisibilitySensor from "react-visibility-sensor";
-import { MdDone, MdDoneAll } from "react-icons/md";
+import { MdDone, MdDoneAll, MdDelete } from "react-icons/md";
 import { useParams } from "react-router-dom";
 
 export const Message = ({ message, own, onDeleteClick }) => {
@@ -74,9 +74,9 @@ export const Message = ({ message, own, onDeleteClick }) => {
   return (
     <>
       {own ? (
-        <Popover>
-          <PopoverTrigger>
-            <Fade in={true}>
+        <SlideFade in={true}>
+          <Popover>
+            <PopoverTrigger>
               <Box
                 as={Flex}
                 p={4}
@@ -114,44 +114,45 @@ export const Message = ({ message, own, onDeleteClick }) => {
                   )}
                 </Flex>
               </Box>
-            </Fade>
-          </PopoverTrigger>
-          <PopoverContent w="200px" mr={50}>
-            <PopoverBody p={0}>
-              {/* <Button
-                variant="ghost"
-                onClick={BookmarkMessage}
-                isFullWidth
-                value={message._id}
-                border="none"
-              >
-                Bookmark
-              </Button> */}
-              <Button
-                variant="ghost"
-                isFullWidth
-                value={message._id}
-                onClick={onDeleteClick}
-                border="none"
-              >
-                Delete
-              </Button>
-            </PopoverBody>
-          </PopoverContent>
-        </Popover>
+            </PopoverTrigger>
+            <PopoverContent w="200px" mr={50}>
+              <PopoverBody p={1}>
+                {/* <Button
+                  variant="ghost"
+                  // onClick={BookmarkMessage}
+                  isFullWidth
+                  value={message._id}
+                  border="none"
+                >
+                  Select
+                </Button> */}
+                <Button
+                  variant="ghost"
+                  isFullWidth
+                  justifyContent="flex-start"
+                  value={message._id}
+                  onClick={onDeleteClick}
+                  border="none"
+                  leftIcon={<MdDelete fontSize="20px" />}
+                >
+                  Delete
+                </Button>
+              </PopoverBody>
+            </PopoverContent>
+          </Popover>
+        </SlideFade>
       ) : (
-        <VisibilitySensor
-          intervalDelay={1}
-          delayedCall={true}
-          scrollCheck={true}
-          onChange={(isVisible) => {
-            setVisibility({
-              visibility: isVisible,
-              messageId: message._id,
-            });
-          }}
-        >
-          <Fade in={true}>
+        <SlideFade in={true}>
+          <VisibilitySensor
+            delayedCall={false}
+            scrollCheck={false}
+            onChange={(isVisible) => {
+              setVisibility({
+                visibility: isVisible,
+                messageId: message._id,
+              });
+            }}
+          >
             <Box
               as={Flex}
               p={3}
@@ -172,8 +173,8 @@ export const Message = ({ message, own, onDeleteClick }) => {
                 {format(message.createdAt, "UTC:h:MM TT")}
               </Text>
             </Box>
-          </Fade>
-        </VisibilitySensor>
+          </VisibilitySensor>
+        </SlideFade>
       )}
     </>
   );

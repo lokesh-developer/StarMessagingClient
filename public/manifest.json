@@ -1,6 +1,6 @@
 {
-  "short_name": "Star Messaging",
-  "name": "Star Messaging",
+  "short_name": "Star Messenger",
+  "name": "Star Messenger",
   "description": "I made this chat app to increase my coding skills and for my friend.",
   "icons": [
     {
@@ -19,7 +19,7 @@
       "sizes": "512x512"
     }
   ],
-  "start_url": "/",
+  "start_url": "/chats",
   "display": "standalone",
   "theme_color": "#6b46c1",
   "background_color": "#ffffff"

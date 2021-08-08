@@ -5,6 +5,7 @@ import {
   IconButton,
   useColorModeValue,
   Flex,
+  Heading,
 } from "@chakra-ui/react";
 import { Message } from "./Message";
 import { MdSend } from "react-icons/md";
@@ -14,6 +15,7 @@ import { SocketContext } from "../../../context/SocketContextProvider";
 import { Loader } from "../../Loader";
 import { toDate } from "date-fns-tz";
 import { format } from "date-fns";
+import Push from "push.js";
 // import { IsOnline } from "../../../lib/IsOnline";
 
 export const ChatBox = () => {
@@ -32,20 +34,24 @@ export const ChatBox = () => {
   const currentDate = format(new Date(), "yyyy-MM-dd HH:mm:ss", {
     timeZone: "Asia/Kolkata",
   });
+
   const date = toDate(currentDate, { timeZone: "UTC" });
   // const isOnline = IsOnline(user._id);
   // console.log(isOnline);
 
   useEffect(() => {
+    const messageRecieved = new Audio("/sounds/water_drip.mp3");
     socket?.on("recieveMessage", (data) => {
       setArrivalMessage({
         sender: data.senderId,
         text: data.text,
         sentAt: data.sentAt,
       });
+      messageRecieved.play();
     });
     socket?.on("messageDeleted", (data) => {
       setMessages(data.previosMessages);
+      messageRecieved.play();
     });
   }, [socket]);
 
@@ -98,6 +104,7 @@ export const ChatBox = () => {
 
   const sendMessage = async (e) => {
     e.preventDefault();
+    console.log(Push);
     const message = {
       sender: user._id,
       text: newMessage,
@@ -146,8 +153,9 @@ export const ChatBox = () => {
 
   return (
     <>
+      {loading ? <></> : <Loader />}
       <Box
-        backgroundImage="url('/chat-bg.jpg')"
+        backgroundImage="url('/images/chat-bg.jpg')"
         backgroundSize="cover"
         h="-webkit-fill-available"
         mt="71px"
@@ -157,56 +165,64 @@ export const ChatBox = () => {
         overflowY="auto"
         ref={scrollRef}
       >
-        {messages.map((m, mid) => (
-          <Message
-            key={mid}
-            message={m}
-            own={m.sender === user._id}
-            onDeleteClick={DeleteMessage}
-          />
-        ))}
-        {loading ? (
-          <>
-            <form>
-              <Flex
-                pos="fixed"
-                p={4}
-                bg={bg}
-                w={["100%", "100%", "65%"]}
-                bottom="0"
-              >
-                <Input
-                  ml={3}
-                  w="full"
-                  variant="unstyled"
-                  placeholder="Write a message..."
-                  type="text"
-                  name="chat"
-                  minH="auto"
-                  onChange={(e) => setNewMessage(e.target.value)}
-                  value={newMessage}
-                  p={0}
-                  isRequired
-                  resize="none"
-                  fontSize="md"
-                  id="chat"
-                />
-                <IconButton
-                  onClick={sendMessage}
-                  ml={3}
-                  type="submit"
-                  borderRadius="full"
-                  variant="ghost"
-                  isDisabled={isDisabled}
-                  ref={send}
-                  icon={<MdSend fontSize="27px" />}
-                />
-              </Flex>
-            </form>
-          </>
+        {messages.length === 0 ? (
+          <Flex h="full" w="full" alignItems="center" justifyContent="center">
+            <Box p={3} bg="whiteAlpha.400">
+              <Heading>Say Hi 👋</Heading>
+            </Box>
+          </Flex>
         ) : (
-          <Loader />
+          <>
+            {messages.map((m, mid) => (
+              <Message
+                key={mid}
+                message={m}
+                own={m.sender === user._id}
+                onDeleteClick={DeleteMessage}
+              />
+            ))}
+          </>
         )}
+
+        <>
+          <form>
+            <Flex
+              pos="fixed"
+              p={4}
+              bg={bg}
+              w={["100%", "100%", "65%"]}
+              bottom="0"
+            >
+              <Input
+                ml={3}
+                w="full"
+                variant="unstyled"
+                placeholder="Write a message..."
+                type="text"
+                name="chat"
+                minH="auto"
+                onChange={(e) => setNewMessage(e.target.value)}
+                value={newMessage}
+                p={0}
+                autoComplete="off"
+                isRequired
+                resize="none"
+                fontSize={["sm", "md", "md"]}
+                id="chat"
+              />
+              <IconButton
+                onClick={sendMessage}
+                ml={3}
+                type="submit"
+                borderRadius="full"
+                variant="ghost"
+                isDisabled={isDisabled}
+                ref={send}
+                icon={<MdSend fontSize="27px" />}
+              />
+            </Flex>
+          </form>
+        </>
       </Box>
     </>
   );

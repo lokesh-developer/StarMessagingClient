@@ -1,8 +1,8 @@
 import loadable from "@loadable/component";
 import { Route, Switch } from "react-router";
+import { Chat } from "../components";
 
 export const Chats = () => {
-  const Chat = loadable(() => import("../components").then((mod) => mod.Chat));
   const ChatRequests = loadable(() =>
     import("../components").then((mod) => mod.ChatRequests)
   );

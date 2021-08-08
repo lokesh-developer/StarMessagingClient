@@ -3,9 +3,10 @@ import {
   Flex,
   useColorModeValue,
   Text,
-  Button,
+  IconButton,
   useDisclosure,
 } from "@chakra-ui/react";
+import { OnlineUser } from "../../OnlineUser";
 import { useHistory } from "react-router-dom";
 // import { MdMoreVert } from "react-icons/md";
 import { ProfileModal } from "../../ProfileModal";
@@ -13,7 +14,6 @@ import { MdKeyboardArrowLeft } from "react-icons/md";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import axios from "axios";
-import { OnlineUser } from "../../OnlineUser";
 
 export const ChatHeader = () => {
   const bg = useColorModeValue("gray.100", "gray.700");
@@ -81,13 +81,14 @@ export const ChatHeader = () => {
         alignItems="center"
         justifyContent="space-between"
       >
-        <Button
-          variant="link"
+        <IconButton
+          variant="ghost"
           outline="none"
-          leftIcon={<MdKeyboardArrowLeft fontSize="27px" />}
+          borderRadius="full"
+          icon={<MdKeyboardArrowLeft fontSize="27px" />}
           onClick={() => history.push("/chats")}
           d={["block", "block", "none"]}
-        ></Button>
+        ></IconButton>
         <Flex w="full">
           <Avatar src={myFriend?.profileUrl} />
           <Flex w="full" flexDir="column" mx={4}>

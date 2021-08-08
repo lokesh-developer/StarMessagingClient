@@ -19,7 +19,7 @@ export const SideBarProfile = () => {
       as={Flex}
       flexDir="column"
       justifyContent="space-between"
-      backgroundImage="url('/chat-bg.jpg')"
+      backgroundImage="url('/images/chat-bg.jpg')"
       backgroundPosition="center"
       backgroundSize="cover"
       backgroundRepeat="no-repeat"

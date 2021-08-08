@@ -1,16 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Box, Tag, Flex, Divider, useToast } from "@chakra-ui/react";
-import loadable from "@loadable/component";
+import { Box, Tag, Flex, useToast } from "@chakra-ui/react";
 import { useParams } from "react-router";
 import axios from "axios";
+import { ChatHeader } from "./ChatHeader";
+import { ChatBox } from "./ChatBox";
 
 export const Chat = () => {
-  const ChatHeader = loadable(() =>
-    import("./ChatHeader").then((mod) => mod.ChatHeader)
-  );
-  const ChatBox = loadable(() =>
-    import("./ChatBox").then((mod) => mod.ChatBox)
-  );
   const [currentChat, setCurrenChat] = useState(null);
   const getConversation = useParams();
   const user = JSON.parse(localStorage.getItem("profile"));
@@ -24,7 +19,7 @@ export const Chat = () => {
         try {
           const res = await axios.get(
             `${process.env.REACT_APP_SERVER_URL}/conversations/c/` +
-              getConversation?.conversationId
+              getConversation.conversationId
           );
           setAnonymous(
             res.data[0].members
@@ -48,7 +43,6 @@ export const Chat = () => {
 
   return (
     <>
-      <Divider orientation="vertical" />
       {anonymous === undefined ? (
         <>
           <Box

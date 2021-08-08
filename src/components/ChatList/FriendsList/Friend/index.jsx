@@ -8,13 +8,14 @@ import {
   Tag,
   Flex,
   useColorModeValue,
+  Divider,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { OnlineUser } from "../../../OnlineUser";
 
 export const Friend = ({ conversation }) => {
-  const bg = useColorModeValue("gray.50", "whiteAlpha.50");
+  const bg = useColorModeValue("gray.200", "whiteAlpha.200");
   const [friendUser, setFriendUser] = useState(null);
   const user = JSON.parse(localStorage.getItem("profile"));
   const [friendId, setFriendId] = useState();
@@ -59,7 +60,15 @@ export const Friend = ({ conversation }) => {
 
   return (
     <>
-      <LinkBox _hover={{ bg }}>
+      <LinkBox
+        _hover={{ bg }}
+        className="my-box"
+        sx={{
+          ".my-box:active &": {
+            background: { bg },
+          },
+        }}
+      >
         <LinkOverlay
           as={Link}
           to={"/chats/conversations/" + conversation._id}
@@ -77,6 +86,7 @@ export const Friend = ({ conversation }) => {
           </Tag>
         </Flex>
       </LinkBox>
+      <Divider orientation="horizontal" />
     </>
   );
 };

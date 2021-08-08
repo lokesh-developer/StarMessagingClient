@@ -9,7 +9,6 @@ import {
 import { MdDone, MdClear } from "react-icons/md";
 import format from "dateformat";
 import { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
 import axios from "axios";
 
 export const RequestersProfile = ({ request }) => {
@@ -18,7 +17,6 @@ export const RequestersProfile = ({ request }) => {
   const [receiverProfile, setReceiverProfile] = useState([]);
   const [senderProfile, setSenderProfile] = useState([]);
   const [requesting, setRequesting] = useState([]);
-  const history = useHistory();
 
   const acceptRequest = async () => {
     const data = {
@@ -39,13 +37,26 @@ export const RequestersProfile = ({ request }) => {
       ])
       .then((req) => {
         setRequesting(req[1].data);
-        history.push(`/chats/conversations/${req[0].data._id}`);
       })
       .catch((error) => {
         console.log(error);
       });
   };
-  const rejectRequest = () => {};
+  const rejectRequest = async () => {
+    const data = {
+      requestId: request._id,
+    };
+    try {
+      const reject = await axios.post(
+        `${process.env.REACT_APP_SERVER_URL}/requests/reject`,
+        data
+      );
+      setRequesting([]);
+      console.log(reject);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
     setRequesting(request);
@@ -78,7 +89,7 @@ export const RequestersProfile = ({ request }) => {
 
   return (
     <>
-      {requesting.receiversId === user._id ? (
+      {requesting?.receiversId === user._id ? (
         <Flex
           p={4}
           justifyContent="space-between"

@@ -1,4 +1,4 @@
-import Lottie from "react-lottie";
+import { Lottie } from "@crello/react-lottie";
 import { logo } from "../../lib/lottie";
 
 export const Logo = ({ width, height }) => {
@@ -13,7 +13,7 @@ export const Logo = ({ width, height }) => {
       width={width}
       height={height}
       style={{ cursor: "default", margin: "0" }}
-      options={logoAni}
+      config={logoAni}
     />
   );
 };

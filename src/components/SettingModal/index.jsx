@@ -93,7 +93,7 @@ export const SettingModal = ({ Open, Close }) => {
           <Box bg={bg}>
             <SettingLabel label="App Info" />
             <Flex p={3} alignItems="center" justifyContent="center">
-              <Text as="b">Star Messaging web v0.22.05.2003</Text>
+              <Text as="b">Star Messenger web v0.22.05.2003</Text>
             </Flex>
           </Box>
         </ModalBody>

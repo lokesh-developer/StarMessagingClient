@@ -5,6 +5,7 @@
   "proxy": "http://localhost:4000",
   "dependencies": {
     "@chakra-ui/react": "^1.6.4",
+    "@crello/react-lottie": "^0.0.11",
     "@emotion/react": "11",
     "@emotion/styled": "11",
     "@loadable/component": "^5.15.0",
@@ -20,7 +21,7 @@
     "framer-motion": "4",
     "jwt-decode": "^3.1.2",
     "moment": "^2.29.1",
-    "pusher-js": "^7.0.3",
+    "push.js": "^1.0.12",
     "react": "^17.0.2",
     "react-animation": "^1.2.2",
     "react-custom-scrollbars": "^4.2.1",
