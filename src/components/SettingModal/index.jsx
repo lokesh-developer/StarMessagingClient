@@ -29,6 +29,18 @@ export const SettingModal = ({ Open, Close }) => {
   const { hasCopied, onCopy } = useClipboard(user._id);
   const { colorMode, toggleColorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const updateApp = () => {
+    console.log(navigator.serviceWorker);
+    navigator.serviceWorker
+      .getRegistration()
+      .then((registration) => {
+        console.log(registration);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
   return (
     <Modal
       scrollBehavior="inside"
@@ -94,6 +106,9 @@ export const SettingModal = ({ Open, Close }) => {
             <SettingLabel label="App Info" />
             <Flex p={3} alignItems="center" justifyContent="center">
               <Text as="b">Star Messenger web v0.22.05.2003</Text>
+              <Button size="md" m={3} onClick={updateApp}>
+                Update
+              </Button>
             </Flex>
           </Box>
         </ModalBody>
