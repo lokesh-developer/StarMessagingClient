@@ -71,7 +71,7 @@ export const Sidebar = ({ Open, Close }) => {
             <Logo width="70px" height="70px" />
             <Text>
               <Text as="b">&copy; Star</Text> messenger web{" "}
-              <Text as="b">v0.22.05.2003</Text>
+              <Text as="b">v01.22.05.2003</Text>
             </Text>
           </DrawerFooter>
         </DrawerContent>
