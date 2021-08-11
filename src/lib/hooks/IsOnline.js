@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from "react";
-import { SocketContext } from "../context/SocketContextProvider";
+import { SocketContext } from "../../context/SocketContextProvider";
 
 export const IsOnline = ({ userId }) => {
   const socket = useContext(SocketContext);

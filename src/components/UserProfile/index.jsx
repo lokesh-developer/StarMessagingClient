@@ -74,8 +74,6 @@ export const UserProfile = () => {
     setRequested(filteredRequests);
   }, [request, user._id]);
 
-  console.log(requested, request);
-
   return (
     <>
       {thatUser ? (
@@ -123,7 +121,7 @@ export const UserProfile = () => {
               onClick={() => history.push("/chats")}
               d={["block", "block", "none"]}
             >
-              Cancel
+              Back
             </Button>
           </Box>
         </>

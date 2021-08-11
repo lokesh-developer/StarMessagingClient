@@ -31,15 +31,7 @@ export const SettingModal = ({ Open, Close }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const updateApp = () => {
-    console.log(navigator.serviceWorker);
-    navigator.serviceWorker
-      .getRegistration()
-      .then((registration) => {
-        console.log(registration);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+    window.location.reload(true);
   };
   return (
     <Modal
@@ -58,66 +50,74 @@ export const SettingModal = ({ Open, Close }) => {
         <ModalHeader bg={bg}>Settings</ModalHeader>
         <ModalCloseButton />
         <ModalBody p={0}>
-          <Box bg={bg}>
-            <SettingLabel label="Profile" />
-            <Flex p={4}>
-              <Avatar src={user.profileUrl} />
-              <Box ml={3}>
-                <Text as="b">{user.name}</Text>
-                <Text>{user.email}</Text>
+          {user !== null ? (
+            <>
+              <Box bg={bg}>
+                <SettingLabel label="Profile" />
+                <Flex p={4}>
+                  <Avatar src={user.profileUrl} />
+                  <Box ml={3}>
+                    <Text as="b">{user.name}</Text>
+                    <Text>{user.email}</Text>
+                  </Box>
+                </Flex>
               </Box>
-            </Flex>
-          </Box>
-          <Box p={3}></Box>
-          <Box bg={bg}>
-            <SettingLabel label="Account" />
+              <Box p={3}></Box>
+              <Box bg={bg}>
+                <SettingLabel label="Account" />
 
-            <SideBarButton
-              onClick={onOpen}
-              label="Share your User Id"
-              icon={<MdShare fontSize="27px" />}
-            />
-            <InputGroup>
-              <Input m={3} placeholder={user._id} isDisabled />
-              <InputRightElement m={3} width="4.5rem">
-                <Button h="1.75rem" size="sm" onClick={onCopy}>
-                  {hasCopied ? "Copied" : "Copy"}
-                </Button>
-              </InputRightElement>
-            </InputGroup>
-          </Box>
-          <Box p={3}></Box>
-          <Box bg={bg}>
-            <SettingLabel label="Chats" />
-            <SideBarButton
-              onClick={toggleColorMode}
-              label={colorMode === "light" ? "Light Theme" : "Dark Theme"}
-              icon={
-                colorMode === "light" ? (
-                  <MdBrightnessHigh fontSize="27px" />
-                ) : (
-                  <MdBrightness2 fontSize="27px" />
-                )
-              }
-            />
-          </Box>
-          <Box p={3}></Box>
-          <Box bg={bg}>
-            <SettingLabel label="App Info" />
-            <Flex p={3} alignItems="center" justifyContent="center">
-              <Text as="b">Star Messenger web v0.22.05.2003</Text>
-              <Button size="md" m={3} onClick={updateApp}>
-                Update
-              </Button>
-            </Flex>
-          </Box>
+                <SideBarButton
+                  onClick={onOpen}
+                  label="Share your User Id"
+                  icon={<MdShare fontSize="27px" />}
+                />
+                <InputGroup>
+                  <Input m={3} placeholder={user?._id} isDisabled />
+                  <InputRightElement m={3} width="4.5rem">
+                    <Button h="1.75rem" size="sm" onClick={onCopy}>
+                      {hasCopied ? "Copied" : "Copy"}
+                    </Button>
+                  </InputRightElement>
+                </InputGroup>
+              </Box>
+              <Box p={3}></Box>
+              <Box bg={bg}>
+                <SettingLabel label="Chats" />
+                <SideBarButton
+                  onClick={toggleColorMode}
+                  label={colorMode === "light" ? "Light Theme" : "Dark Theme"}
+                  icon={
+                    colorMode === "light" ? (
+                      <MdBrightnessHigh fontSize="27px" />
+                    ) : (
+                      <MdBrightness2 fontSize="27px" />
+                    )
+                  }
+                />
+              </Box>
+              <Box p={3}></Box>
+              <Box bg={bg}>
+                <SettingLabel label="App Info" />
+                <Flex p={3} alignItems="center" justifyContent="center">
+                  <Text as="b">Star Messenger web v0.22.05.2003</Text>
+                  <Button size="md" m={3} onClick={updateApp}>
+                    Update
+                  </Button>
+                </Flex>
+              </Box>
+            </>
+          ) : (
+            <></>
+          )}
         </ModalBody>
       </ModalContent>
-      <ShareModal
-        onClose={onClose}
-        isOpen={isOpen}
-        content={`Send me request on https://star-messaging-client.vercel.app/chats/users/${user._id} to start a conversation.`}
-      />
+      {user !== null ? (
+        <ShareModal
+          onClose={onClose}
+          isOpen={isOpen}
+          content={`Send me request on https://star-messaging-client.vercel.app/chats/users/${user._id} to start a conversation.`}
+        />
+      ) : null}
     </Modal>
   );
 };
