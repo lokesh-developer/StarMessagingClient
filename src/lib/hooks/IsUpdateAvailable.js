@@ -7,9 +7,15 @@ export const IsUpdateAvailable = () => {
     navigator.serviceWorker
       .getRegistrations()
       .then((registrations) => {
-        registrations.onupdatefound = () => {
-          setUpdateAvailable(true);
-        };
+        registrations.map((e) => {
+          if (e.waiting === null) {
+            setUpdateAvailable(false);
+            return false;
+          } else {
+            setUpdateAvailable(true);
+            return true;
+          }
+        });
       })
       .catch((err) => {
         console.log(err);
