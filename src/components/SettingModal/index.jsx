@@ -22,7 +22,7 @@ import { MdBrightnessHigh, MdShare, MdBrightness2 } from 'react-icons/md';
 import { SideBarButton } from '../Sidebar/SideBarButton';
 import { SettingLabel } from './SettingLabel';
 import { ShareModal } from './ShareModal';
-import { IsUpdateAvailable } from '../../lib/hooks/IsUpdateAvailable';
+// import { IsUpdateAvailable } from '../../lib/hooks/IsUpdateAvailable';
 import { FcDownload } from 'react-icons/fc';
 import { useState } from 'react';
 // import { , useState } from 'react';
@@ -33,9 +33,9 @@ export const SettingModal = ({ Open, Close }) => {
   const { hasCopied, onCopy } = useClipboard(user._id);
   const { colorMode, toggleColorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const updateAvailable = IsUpdateAvailable();
+  // const updateAvailable = IsUpdateAvailable();
   const updateApp = () => {
-    window.location.reload(true);
+    window.location.replace(window.location.href);
   };
   // var preDefferedPrompt;
   const [deferredPrompt, setDefferedPrompt] = useState(null);
@@ -200,15 +200,15 @@ export const SettingModal = ({ Open, Close }) => {
                 <SettingLabel label="App Info" />
                 <Flex p={3} alignItems="center" justifyContent="center">
                   <Text as="b">Telechat web v1.0</Text>
-                  {updateAvailable === true ? (
+                  {/* {updateAvailable === true ? ( */}
                     <Button size="md" m={3} onClick={updateApp}>
                       Update
                     </Button>
-                  ) : (
-                    <Button isDisabled={true} size="md" m={3} onClick={updateApp}>
+                  {/* ) : (
+                  / <Button isDisabled={true} size="md" m={3} onClick={updateApp}>
                       No Updates
                     </Button>
-                  )}
+                  )} */}
                 </Flex>
               </Box>
             </>
