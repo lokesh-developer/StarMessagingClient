@@ -1,9 +1,10 @@
-import React from "react";
-import { Button, Text } from "@chakra-ui/react";
+import React from 'react';
+import { Button, Text } from '@chakra-ui/react';
 
-export const SideBarButton = ({ label, icon, onClick }) => {
+export const SideBarButton = ({ label, icon, onClick, isDisabled }) => {
   return (
     <Button
+      isDisabled={isDisabled}
       isFullWidth
       borderRadius="none"
       variant="ghost"
@@ -11,8 +12,7 @@ export const SideBarButton = ({ label, icon, onClick }) => {
       iconSpacing={4}
       leftIcon={icon}
       onClick={onClick}
-      sx={{ alignItems: "center", justifyContent: "start" }}
-    >
+      sx={{ alignItems: 'center', justifyContent: 'start' }}>
       <Text fontSize="lg">{label}</Text>
     </Button>
   );

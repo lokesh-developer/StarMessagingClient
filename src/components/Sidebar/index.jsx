@@ -67,11 +67,11 @@ export const Sidebar = ({ Open, Close }) => {
               />
             </Flex>
           </DrawerBody>
-          <DrawerFooter>
-            <Logo width="70px" height="70px" />
-            <Text>
-              <Text as="b">&copy; Star</Text> messenger web{" "}
-              <Text as="b">v00.22.05.2003</Text>
+          <DrawerFooter justifySelf={'start'}>
+            {/* <Logo width="70px" height="70px" /> */}
+            <Text alignSelf={'start'}>
+              <Text as="b">&copy; Telechat</Text> web{" "}
+              <Text as="b">v1.0</Text>
             </Text>
           </DrawerFooter>
         </DrawerContent>
